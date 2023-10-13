@@ -6,6 +6,13 @@
     <title>DRINKS CLASS</title>
   </head>
   <body>
+    <div>
+      <input type="button" value="Добавить напиток" onclick="addDrink()" />
+      <input type="button" value="Найти напиток" onclick="getDrink()" />
+      <input type="button" value="Удалить напиток" onclick="deleteDrink()" />
+      <input type="button" value="Показать все напитки" onclick="showDrink()" />
+    </div>
+
     <script>
       class ObjStorageClass {
         #storage = {};
@@ -31,7 +38,31 @@
         }
       }
 
-      let ObjStorage2 = new ObjStorageClass();
+      let ObjStorage = new ObjStorageClass();
+
+      function addDrink() {
+        const name = prompt("Введите название напитка");
+        const recipe = prompt("Введите состав напитка");
+        const alco = confirm("Напиток алкогольный?");
+        ObjStorage.addValue(name, { recipe: recipe, alco: alco });
+      }
+
+      function getDrink() {
+        const name = prompt("Введите название напитка");
+        const result = ObjStorage.getValue(name);
+        alert(result.recipe + "" + result.alco);
+      }
+
+      function deleteDrink() {
+        const name = prompt("Введите название напитка");
+        const result = ObjStorage.deleteValue(name);
+        alert(result ? "Напиток удален" : "Не найден");
+      }
+
+      function showDrink() {
+        const list = ObjStorage.getKeys();
+        alert(list.join("\n"));
+      }
     </script>
   </body>
 </html>

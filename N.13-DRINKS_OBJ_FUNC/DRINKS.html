@@ -6,6 +6,13 @@
     <title>DRINKS FUNC</title>
   </head>
   <body>
+    <div>
+      <input type="button" value="Добавить напиток" onclick="addDrink()" />
+      <input type="button" value="Найти напиток" onclick="getDrink()" />
+      <input type="button" value="Удалить напиток" onclick="deleteDrink()" />
+      <input type="button" value="Показать все напитки" onclick="showDrink()" />
+    </div>
+
     <script>
       function ObjStorageFunc() {
         const storage = {};
@@ -31,7 +38,7 @@
         };
       }
 
-      let ObjStorage1 = new ObjStorageFunc();
+      let ObjStorage = new ObjStorageFunc();
 
       function addDrink() {
         const name = prompt("Введите название напитка");
