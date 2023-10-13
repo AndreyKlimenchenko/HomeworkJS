@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DRINKS CLASS</title>
+  </head>
+  <body>
+    <script>
+      class ObjStorageClass {
+        #storage = {};
+
+        addValue(key, value) {
+          this.#storage[key] = value;
+        }
+
+        getValue(key) {
+          return this.#storage[key];
+        }
+
+        deleteValue(key) {
+          if (key in this.#storage) {
+            delete this.#storage[key];
+            return true;
+          }
+          return false;
+        }
+
+        getKeys() {
+          return Object.keys(this.#storage);
+        }
+      }
+
+      let ObjStorage2 = new ObjStorageClass();
+    </script>
+  </body>
+</html>
