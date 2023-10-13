@@ -35,8 +35,8 @@ function getDrink() {
   const name = prompt("Введите название напитка");
   const result = ObjStorage.getValue(name);
   result.alco
-    ? alert(name + ":" + result.recipe + " алкогольный")
-    : alert(name + ":" + result.recipe + " безалкогольный");
+    ? alert(name + " готовится из: " + result.recipe + " и он алкогольный!")
+    : alert(name + ":" + result.recipe + " и он безалкогольный!");
 }
 
 function deleteDrink() {
