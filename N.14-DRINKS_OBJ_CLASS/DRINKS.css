@@ -1,0 +1,38 @@
+* {
+  padding: 0px;
+  margin: 0px;
+  box-sizing: border-box;
+}
+
+body {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #5372f0;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.2em;
+  max-width: 37.5em;
+  padding: 2em;
+}
+
+.input {
+  margin: 0 2em;
+  font-size: 1em;
+  padding: 0.6em 0.4em;
+  border: none;
+  border-radius: 0.6em;
+  outline: none;
+  color: #1f194c;
+  cursor: pointer;
+}
+
+.input:hover {
+  color: #fff;
+  background: #333;
+}
