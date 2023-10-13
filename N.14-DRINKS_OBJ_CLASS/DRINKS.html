@@ -6,63 +6,12 @@
     <title>DRINKS CLASS</title>
   </head>
   <body>
+    <script src="./DRINKS.js"></script>
     <div>
       <input type="button" value="Добавить напиток" onclick="addDrink()" />
       <input type="button" value="Найти напиток" onclick="getDrink()" />
       <input type="button" value="Удалить напиток" onclick="deleteDrink()" />
       <input type="button" value="Показать все напитки" onclick="showDrink()" />
     </div>
-
-    <script>
-      class ObjStorageClass {
-        #storage = {};
-
-        addValue(key, value) {
-          this.#storage[key] = value;
-        }
-
-        getValue(key) {
-          return this.#storage[key];
-        }
-
-        deleteValue(key) {
-          if (key in this.#storage) {
-            delete this.#storage[key];
-            return true;
-          }
-          return false;
-        }
-
-        getKeys() {
-          return Object.keys(this.#storage);
-        }
-      }
-
-      let ObjStorage = new ObjStorageClass();
-
-      function addDrink() {
-        const name = prompt("Введите название напитка");
-        const recipe = prompt("Введите состав напитка");
-        const alco = confirm("Напиток алкогольный?");
-        ObjStorage.addValue(name, { recipe: recipe, alco: alco });
-      }
-
-      function getDrink() {
-        const name = prompt("Введите название напитка");
-        const result = ObjStorage.getValue(name);
-        alert(result.recipe + "" + result.alco);
-      }
-
-      function deleteDrink() {
-        const name = prompt("Введите название напитка");
-        const result = ObjStorage.deleteValue(name);
-        alert(result ? "Напиток удален" : "Не найден");
-      }
-
-      function showDrink() {
-        const list = ObjStorage.getKeys();
-        alert(list.join("\n"));
-      }
-    </script>
   </body>
 </html>
