@@ -44,21 +44,25 @@
       function getDrink() {
         const name = prompt("Введите название напитка");
         const result = ObjStorage.getValue(name);
-        result.alco
-          ? alert(
-              "Напиток " +
-                name +
-                " готовится из: " +
-                result.recipe +
-                " и он алкогольный!"
-            )
-          : alert(
-              "Напиток " +
-                name +
-                " готовится из: " +
-                result.recipe +
-                " и он безалкогольный!"
-            );
+        if (result == null) {
+          alert("Нет такого");
+        } else {
+          result.alco
+            ? alert(
+                "Напиток " +
+                  name +
+                  " готовится из: " +
+                  result.recipe +
+                  " и он алкогольный!"
+              )
+            : alert(
+                "Напиток " +
+                  name +
+                  " готовится из: " +
+                  result.recipe +
+                  " и он безалкогольный!"
+              );
+        }
       }
 
       function deleteDrink() {
@@ -69,7 +73,11 @@
 
       function showDrink() {
         const list = ObjStorage.getKeys();
-        alert(list.join("\n"));
+        if (list.length == 0) {
+          alert("Нет напитков");
+        } else {
+          alert(list.join("\n"));
+        }
       }
     </script>
     <div class="container">
