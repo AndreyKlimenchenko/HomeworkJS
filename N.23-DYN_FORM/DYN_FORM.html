@@ -1,11 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta chareset="utf-8" />
     <title>DYN_FORM</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   </head>
   <body>
+    <form id="form"></form>
+    <form id="form1"></form>
     <script>
       const formDef1 = [
         { label: "Название сайта:", kind: "longtext", name: "sitename" },
@@ -34,7 +35,7 @@
         },
         { label: "Разрешить отзывы:", kind: "check", name: "votes" },
         { label: "Описание сайта:", kind: "memo", name: "description" },
-        { caption: "Опубликовать", kind: "submit" },
+        { label: "Опубликовать:", kind: "submit" },
       ];
 
       const formDef2 = [
@@ -42,10 +43,263 @@
         { label: "Имя:", kind: "longtext", name: "firstname" },
         { label: "Отчество:", kind: "longtext", name: "secondname" },
         { label: "Возраст:", kind: "number", name: "age" },
-        { caption: "Зарегистрироваться", kind: "submit" },
+        { label: "Зарегистрироваться:", kind: "submit" },
       ];
 
-      
+      createForm(formDef1);
+      createForm(formDef2);
+
+      function createForm(f) {
+        const Form = document.getElementById("form");
+        const NameForm = Form.setAttribute("action", "http://fe.it-academy.by/TestForm.php");
+        const Form1 = document.getElementById("form1");
+        const NameForm1 = Form1.setAttribute("action", "http://fe.it-academy.by/TestForm.php");
+        
+        switch (f) {
+          case formDef1:
+            for (let i = 0; i < formDef1.length; i++) {
+              for (let k in formDef1[i]) {
+                let Label = document.createElement("label");
+                let BR = document.createElement("br");
+                let siteName_txt = document.createTextNode("Название сайта: ");
+                let SiteName = document.createElement("input");
+                let URL = document.createTextNode("URL сайта: ");
+                let SiteURL = document.createElement("input");
+                let VISITORS = document.createTextNode("Посетителей в сутки: ");
+                let SiteVisitors = document.createElement("input");
+                let EMAIL = document.createTextNode("E-mail для связи: ");
+                let SiteEmail = document.createElement("input");
+                let CATALOG = document.createTextNode("Рубрика каталога: ");
+                let Accommodation = document.createTextNode("Размещение: ");
+                let REVIEWS = document.createTextNode("Разрешить отзывы: ");
+                let AllowReviews = document.createElement("input");
+                let DESCRIPTION = document.createTextNode("Описание сайта: ");
+                let SiteDecription = document.createElement("textarea");
+                let Publish = document.createElement("input");
+
+                if (formDef1[i][k] === "Название сайта:") {
+                  Form.appendChild(Label);
+                  Form.appendChild(BR);
+                  Label.appendChild(siteName_txt);
+                  SiteName.setAttribute("type", "text");
+                  SiteName.setAttribute("style", "margin-left: 37px; width: 500px");
+                  SiteName.setAttribute("name", "sitename");
+                  Label.appendChild(SiteName);
+                }
+
+                if (formDef1[i][k] === "URL сайта:") {
+                  Form.appendChild(Label);
+                  Form.appendChild(BR);
+                  Label.appendChild(URL);
+                  SiteURL.setAttribute("type", "text");
+                  SiteURL.setAttribute("style", "margin-left: 68px; width: 500px");
+                  SiteURL.setAttribute("name", "siteurl");
+                  Label.appendChild(SiteURL);
+                }
+
+                if (formDef1[i][k] === "Посетителей в сутки:") {
+                  Form.appendChild(Label);
+                  Form.appendChild(BR);
+                  Label.appendChild(VISITORS);
+                  SiteVisitors.setAttribute("type", "text");
+                  SiteVisitors.setAttribute("style", "width: 100px");
+                  SiteVisitors.setAttribute("name", "visitors");
+                  Label.appendChild(SiteVisitors);
+                }
+
+                if (formDef1[i][k] === "E-mail для связи:") {
+                  Form.appendChild(Label);
+                  Form.appendChild(BR);
+                  Label.appendChild(EMAIL);
+                  SiteEmail.setAttribute("type", "text");
+                  SiteEmail.setAttribute("style", "margin-left: 30px; width: 200px");
+                  SiteEmail.setAttribute("name", "email");
+                  Label.appendChild(SiteEmail);
+                }
+
+                if (formDef1[i][k] === "Рубрика каталога:") {
+                  Form.appendChild(Label);
+                  Form.appendChild(BR);
+                  Label.appendChild(CATALOG);
+
+                  if (formDef1[i].variants) {
+                    let headingCatalog = document.createElement("select");
+                    let Health = document.createTextNode("здоровье");
+                    let Сosiness = document.createTextNode("домашний уют");
+                    let Appliances = document.createTextNode("бытовая техника");
+
+                    for (let j = 0; j < formDef1[i].variants.length; j++) {
+                      for (let K in formDef1[i].variants[j]) {
+                        let Option = document.createElement("option");
+
+                        if (formDef1[i].variants[j][K] === "здоровье") {
+                          headingCatalog.setAttribute("name", "division");
+                          headingCatalog.setAttribute("style", "margin-left: 23px");
+                          Label.appendChild(headingCatalog);
+                          headingCatalog.appendChild(Option);
+                          Option.setAttribute("value", "1");
+                          Option.appendChild(Health);
+                        }
+
+                        if (formDef1[i].variants[j][K] === "домашний уют") {
+                          headingCatalog.appendChild(Option);
+                          Option.setAttribute("value", "2");
+                          Option.appendChild(Сosiness);
+                        }
+
+                        if (formDef1[i].variants[j][K] === "бытовая техника") {
+                          headingCatalog.appendChild(Option);
+                          Option.setAttribute("value", "3");
+                          Option.setAttribute("selected", "true");
+                          Option.appendChild(Appliances);
+                        }
+                      }
+                    }
+                  }
+                }
+
+                if (formDef1[i][k] === "Размещение:") {
+                  Form.appendChild(Label);
+                  Form.appendChild(BR);
+                  Label.appendChild(Accommodation);
+
+                  if (formDef1[i].variants) {
+                    for (let l = 0; l < formDef1[i].variants.length; l++) {
+                      for (let Key in formDef1[i].variants[l]) {
+                        let radioButton = document.createElement("input");
+                        let Free = document.createTextNode("бесплатное");
+                        let radioButton1 = document.createElement("input");
+                        let Paid = document.createTextNode("платное");
+                        let radioButton2 = document.createElement("input");
+                        let VIP = document.createTextNode("VIP");
+
+                        if (formDef1[i].variants[l][Key] === "бесплатное") {
+                          radioButton.setAttribute("type", "radio");
+                          radioButton.setAttribute("name", "payment");
+                          radioButton.setAttribute("value", "1");
+                          radioButton.setAttribute("style", "margin-left: 60px");
+                          Label.appendChild(radioButton);
+                          Label.appendChild(Free);
+                        }
+
+                        if (formDef1[i].variants[l][Key] === "платное") {
+                          radioButton1.setAttribute("type", "radio");
+                          radioButton1.setAttribute("name", "payment");
+                          radioButton1.setAttribute("value", "2");
+                          Label.appendChild(radioButton1);
+                          Label.appendChild(Paid);
+                        }
+
+                        if (formDef1[i].variants[l][Key] === "VIP") {
+                          radioButton2.setAttribute("type", "radio");
+                          radioButton2.setAttribute("name", "payment");
+                          radioButton2.setAttribute("value", "3");
+                          Label.appendChild(radioButton2);
+                          Label.appendChild(VIP);
+                        }
+                      }
+                    }
+                  }
+                }
+
+                if (formDef1[i][k] === "Разрешить отзывы:") {
+                  Form.appendChild(Label);
+                  Form.appendChild(BR);
+                  Label.appendChild(REVIEWS);
+                  AllowReviews.setAttribute("type", "checkbox");
+                  AllowReviews.setAttribute("style", "margin-left: 16px");
+                  AllowReviews.setAttribute("name", "votes");
+                  AllowReviews.setAttribute("checked", "true");
+                  Label.appendChild(AllowReviews);
+                }
+
+                if (formDef1[i][k] === "Описание сайта:") {
+                  Form.appendChild(Label);
+                  Form.appendChild(BR);
+                  Label.appendChild(DESCRIPTION);
+                  Label.appendChild(BR);
+                  SiteDecription.setAttribute("style", "width: 650px; height: 50px");
+                  SiteDecription.setAttribute("name", "description");
+                  Label.appendChild(SiteDecription);
+                }
+
+                if (formDef1[i][k] === "Опубликовать:") {
+                  Form.appendChild(BR);
+                  Publish.setAttribute("type", "submit");
+                  Publish.setAttribute("value", "Опубликовать");
+                  Form.appendChild(Publish);
+                }
+              }
+            }
+            break;
+
+          case formDef2:
+            for (let i = 0; i < formDef2.length; i++) {
+              for (let k in formDef2[i]) {
+                let HR = document.createElement("hr");
+                let Label = document.createElement("label");
+                let BR = document.createElement("br");
+                let SURNAME = document.createTextNode("Фамилия: ");
+                let Surname = document.createElement("input");
+                let NAME = document.createTextNode("Имя: ");
+                let Name = document.createElement("input");
+                let SECONDNAME = document.createTextNode("Отчество: ");
+                let Secondname = document.createElement("input");
+                let AGE = document.createTextNode("Возраст: ");
+                let Age = document.createElement("input");
+                let Publish1 = document.createElement("input");
+
+                if (formDef2[i][k] === "Фамилия:") {
+                  Form1.appendChild(HR);
+                  Form1.appendChild(Label);
+                  Form1.appendChild(BR);
+                  Label.appendChild(SURNAME);
+                  Surname.setAttribute("type", "text");
+                  Surname.setAttribute("style", "margin-left: 80px; width: 500px");
+                  Surname.setAttribute("name", "lastname");
+                  Label.appendChild(Surname);
+                }
+
+                if (formDef2[i][k] === "Имя:") {
+                  Form1.appendChild(Label);
+                  Form1.appendChild(BR);
+                  Label.appendChild(NAME);
+                  Name.setAttribute("type", "text");
+                  Name.setAttribute("style", "margin-left: 114px; width: 500px");
+                  Name.setAttribute("name", "firstname");
+                  Label.appendChild(Name);
+                }
+
+                if (formDef2[i][k] === "Отчество:") {
+                  Form1.appendChild(Label);
+                  Form1.appendChild(BR);
+                  Label.appendChild(SECONDNAME);
+                  Secondname.setAttribute("type", "text");
+                  Secondname.setAttribute("style", "margin-left: 79px; width: 500px");
+                  Secondname.setAttribute("name", "secondname");
+                  Label.appendChild(Secondname);
+                }
+
+                if (formDef2[i][k] === "Возраст:") {
+                  Form1.appendChild(Label);
+                  Form1.appendChild(BR);
+                  Label.appendChild(AGE);
+                  Age.setAttribute("type", "text");
+                  Age.setAttribute("style", "margin-left: 88px; width: 100px");
+                  Age.setAttribute("name", "age");
+                  Label.appendChild(Age);
+                }
+
+                if (formDef2[i][k] === "Зарегистрироваться:") {
+                  Publish1.setAttribute("type", "submit");
+                  Publish1.setAttribute("value", "Зарегистрироваться");
+                  Form1.appendChild(Publish1);
+                }
+              }
+            }
+            break;
+        }
+      }
     </script>
   </body>
 </html>
