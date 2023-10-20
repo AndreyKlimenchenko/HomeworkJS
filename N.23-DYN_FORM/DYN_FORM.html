@@ -59,23 +59,23 @@
           case formDef1:
             for (let i = 0; i < formDef1.length; i++) {
               for (let k in formDef1[i]) {
-                let Label = document.createElement("label");
-                let BR = document.createElement("br");
-                let siteName_txt = document.createTextNode("Название сайта: ");
-                let SiteName = document.createElement("input");
-                let URL = document.createTextNode("URL сайта: ");
-                let SiteURL = document.createElement("input");
-                let VISITORS = document.createTextNode("Посетителей в сутки: ");
-                let SiteVisitors = document.createElement("input");
-                let EMAIL = document.createTextNode("E-mail для связи: ");
-                let SiteEmail = document.createElement("input");
-                let CATALOG = document.createTextNode("Рубрика каталога: ");
-                let Accommodation = document.createTextNode("Размещение: ");
-                let REVIEWS = document.createTextNode("Разрешить отзывы: ");
-                let AllowReviews = document.createElement("input");
-                let DESCRIPTION = document.createTextNode("Описание сайта: ");
-                let SiteDecription = document.createElement("textarea");
-                let Publish = document.createElement("input");
+                const Label = document.createElement("label");
+                const BR = document.createElement("br");
+                const siteName_txt = document.createTextNode("Название сайта: ");
+                const SiteName = document.createElement("input");
+                const URL = document.createTextNode("URL сайта: ");
+                const SiteURL = document.createElement("input");
+                const VISITORS = document.createTextNode("Посетителей в сутки: ");
+                const SiteVisitors = document.createElement("input");
+                const EMAIL = document.createTextNode("E-mail для связи: ");
+                const SiteEmail = document.createElement("input");
+                const CATALOG = document.createTextNode("Рубрика каталога: ");
+                const Accommodation = document.createTextNode("Размещение: ");
+                const REVIEWS = document.createTextNode("Разрешить отзывы: ");
+                const AllowReviews = document.createElement("input");
+                const DESCRIPTION = document.createTextNode("Описание сайта: ");
+                const SiteDecription = document.createElement("textarea");
+                const Publish = document.createElement("input");
 
                 if (formDef1[i][k] === "Название сайта:") {
                   Form.appendChild(Label);
@@ -123,14 +123,14 @@
                   Label.appendChild(CATALOG);
 
                   if (formDef1[i].variants) {
-                    let headingCatalog = document.createElement("select");
-                    let Health = document.createTextNode("здоровье");
-                    let Сosiness = document.createTextNode("домашний уют");
-                    let Appliances = document.createTextNode("бытовая техника");
+                    const headingCatalog = document.createElement("select");
+                    const Health = document.createTextNode("здоровье");
+                    const Сosiness = document.createTextNode("домашний уют");
+                    const Appliances = document.createTextNode("бытовая техника");
 
                     for (let j = 0; j < formDef1[i].variants.length; j++) {
                       for (let K in formDef1[i].variants[j]) {
-                        let Option = document.createElement("option");
+                        const Option = document.createElement("option");
 
                         if (formDef1[i].variants[j][K] === "здоровье") {
                           headingCatalog.setAttribute("name", "division");
@@ -166,12 +166,12 @@
                   if (formDef1[i].variants) {
                     for (let l = 0; l < formDef1[i].variants.length; l++) {
                       for (let Key in formDef1[i].variants[l]) {
-                        let radioButton = document.createElement("input");
-                        let Free = document.createTextNode("бесплатное");
-                        let radioButton1 = document.createElement("input");
-                        let Paid = document.createTextNode("платное");
-                        let radioButton2 = document.createElement("input");
-                        let VIP = document.createTextNode("VIP");
+                        const radioButton = document.createElement("input");
+                        const Free = document.createTextNode("бесплатное");
+                        const radioButton1 = document.createElement("input");
+                        const Paid = document.createTextNode("платное");
+                        const radioButton2 = document.createElement("input");
+                        const VIP = document.createTextNode("VIP");
 
                         if (formDef1[i].variants[l][Key] === "бесплатное") {
                           radioButton.setAttribute("type", "radio");
@@ -236,18 +236,18 @@
           case formDef2:
             for (let i = 0; i < formDef2.length; i++) {
               for (let k in formDef2[i]) {
-                let HR = document.createElement("hr");
-                let Label = document.createElement("label");
-                let BR = document.createElement("br");
-                let SURNAME = document.createTextNode("Фамилия: ");
-                let Surname = document.createElement("input");
-                let NAME = document.createTextNode("Имя: ");
-                let Name = document.createElement("input");
-                let SECONDNAME = document.createTextNode("Отчество: ");
-                let Secondname = document.createElement("input");
-                let AGE = document.createTextNode("Возраст: ");
-                let Age = document.createElement("input");
-                let Publish1 = document.createElement("input");
+                const HR = document.createElement("hr");
+                const Label = document.createElement("label");
+                const BR = document.createElement("br");
+                const SURNAME = document.createTextNode("Фамилия: ");
+                const Surname = document.createElement("input");
+                const NAME = document.createTextNode("Имя: ");
+                const Name = document.createElement("input");
+                const SECONDNAME = document.createTextNode("Отчество: ");
+                const Secondname = document.createElement("input");
+                const AGE = document.createTextNode("Возраст: ");
+                const Age = document.createElement("input");
+                const Publish1 = document.createElement("input");
 
                 if (formDef2[i][k] === "Фамилия:") {
                   Form1.appendChild(HR);
