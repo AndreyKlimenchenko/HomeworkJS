@@ -32,4 +32,5 @@ input, button, select {
 
 textarea {
     cursor: text;
+    width: 50%;
 }
