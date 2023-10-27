@@ -1,0 +1,35 @@
+form {
+    display: flex;
+    flex-direction: column;
+    border: 3px solid black;
+    margin-bottom: 50px;
+    padding: 25px;
+    background-color: rgb(168, 166, 166);
+}
+
+label {
+    display: block;
+    position: relative;
+    margin-bottom: 15px;
+    font-weight: 700;
+}
+
+form button {
+    margin: 0px auto;
+}
+
+div span {
+    color: brown;
+}
+
+.box {
+    display: flex;
+}
+
+input, button, select {
+    cursor: pointer;
+}
+
+textarea {
+    cursor: text;
+}

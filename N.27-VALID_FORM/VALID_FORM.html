@@ -7,120 +7,116 @@
     <link rel="stylesheet" href="./VALID_FORM.css" />
 </head>
 <body>
-    <div class="wrapper">
-        <div class="container">
-            <form id="myForm" action="https://fe.it-academy.by/TestForm.php" novalidate class="formValidation">
-                <div class="startBox">
-                    <div class="boxLabel">
-                        <label>Разработчики:</label>
-                    </div>
-                    <div class="boxInput">
-                        <input type="text" class="developer" id="dev"></input>
-                        <span id="devError"></span>
-                    </div>
-                </div>
-                
-                <div class="startBox">
-                    <div class="boxLabel">
-                        <label>Название сайта:</label>
-                    </div>
-                    <div class="boxInput">
-                        <input type="text" class="namesite" id="siteName"></input>
-                        <span class="error" id="siteNameError"></span>
-                    </div>
-                </div>
-                
-                <div class="startBox">
-                    <div class="boxLabel">
-                        <label>URL сайта:</label>
-                    </div>
-                    <div class="boxInput">
-                        <input type="text" class="urlsite shorttext" id="siteUrl"></input>
-                        <span class="error" id="siteUrlError"></span>
-                    </div>
-                </div>
-
-                <div class="startBox">
-                    <div class="boxLabel">
-                        <label>Дата запуска сайта:</label>
-                    </div>
-                    <div class="boxInput">
-                        <input type="date" class="launchdate" id="startDate"></input>
-                        <span class="error" id="startDateError"></span> 
-                    </div>
-                </div>
-                
-                <div class="startBox">
-                    <div class="boxLabel">
-                        <label>Посетителей в сутки:</label>
-                    </div>
-                    <div class="boxInput">
-                        <input type="number" class="visitors" id="users"></input>
-                        <span class="error" id="usersError"></span>
-                    </div>
-                </div>
-
-                <div class="startBox">
-                    <div class="boxLabel">
-                        <label>E-mail для связи:</label>
-                    </div>
-                    <div class="boxInput">
-                        <input type="text" class="email" id="mail">
-                        <span id="mailError"></span>
-                    </div>
-                </div>
-
-                <div class="startBox">
-                    <div class="boxLabel">
-                        <label>Рубрика каталога:</label>
-                    </div>
-                    <div class="boxInput">
-                        <select class="heading" id="choise">
-                            <option value="0"></option>
-                            <option value="1">здоровье</option>
-                            <option value="2">домашний уют</option>
-                            <option value="3">бытовая техника</option>
-                        </select>
-                        <span class="error" id="choiseError"></span>
-                    </div>
-                </div>
-    
-                <div class="startBox">
-                    <div class="boxLabel">
-                        <label>Размещение:</label>
-                    </div>
-                    <div class="boxInput">
-                        <input class="radio" type="radio" name="payment" value="1" id="radio1">бесплатное</input>
-                        <input class="radio" type="radio" name="payment" value="2" id="radio2">платное</input>
-                        <input class="radio" type="radio" name="payment" value="3" id="radio3">VIP</input>
-                        <span class="error" id="radioError"></span>
-                    </div>
-                </div>
-
-                <div class="startBox">
-                    <div class="boxLabel">
-                        <label>Разрешить отзывы:</label>
-                    </div>
-                    <div class="boxInputCheckokay">
-                        <input class="checkokay" type="checkbox" name="votes" id="check"></input>
-                        <span class="error" id="checkError"></span>
-                    </div>
-                </div>
-                
-                <div class="startBox">
-                    <div class="boxLabel">
-                        <label>Описание сайта:</label>
-                    </div>
-                </div>
-                <div class="boxInputTextarea">
-                    <textarea class="textarea" name="description" id="description"></textarea>
-                    <span class="error" id="descriptionError"></span>
-                </div>
-                
-               <button class="submit">Опубликовать</button>
-            </form>
+    <form id="form" action="https://fe.it-academy.by/TestForm.php" novalidate class="formValidation" method="POST">
+        <div class="box">
+            <div>
+                <label>Разработчики:</label>
+            </div>
+            <div>
+                <input type="text" class="developer" id="dev"></input>
+                <span id="devError"></span>
+            </div>
         </div>
-    </div>
+        
+        <div class="box">
+            <div>
+                <label>Название сайта:</label>
+            </div>
+            <div>
+                <input type="text" class="namesite" id="siteName"></input>
+                <span class="error" id="siteNameError"></span>
+            </div>
+        </div>
+        
+        <div class="box">
+            <div>
+                <label>URL сайта:</label>
+            </div>
+            <div>
+                <input type="text" class="urlsite shorttext" id="siteUrl"></input>
+                <span class="error" id="siteUrlError"></span>
+            </div>
+        </div>
+
+        <div class="box">
+            <div>
+                <label>Дата запуска сайта:</label>
+            </div>
+            <div>
+                <input type="date" class="launchdate" id="startDate"></input>
+                <span class="error" id="startDateError"></span> 
+            </div>
+        </div>
+        
+        <div class="box">
+            <div>
+                <label>Посетителей в сутки:</label>
+            </div>
+            <div>
+                <input type="number" class="visitors" id="users"></input>
+                <span class="error" id="usersError"></span>
+            </div>
+        </div>
+
+        <div class="box">
+            <div>
+                <label>E-mail для связи:</label>
+            </div>
+            <div>
+                <input type="text" class="email" id="mail">
+                <span id="mailError"></span>
+            </div>
+        </div>
+
+        <div class="box">
+            <div>
+                <label>Рубрика каталога:</label>
+            </div>
+            <div>
+                <select class="heading" id="choise">
+                    <option value="0"></option>
+                    <option value="1">здоровье</option>
+                    <option value="2">домашний уют</option>
+                    <option value="3">бытовая техника</option>
+                </select>
+                <span class="error" id="choiseError"></span>
+            </div>
+        </div>
+
+        <div class="box">
+            <div>
+                <label>Размещение:</label>
+            </div>
+            <div>
+                <input class="radio" type="radio" name="payment" value="1" id="radio1">бесплатное</input>
+                <input class="radio" type="radio" name="payment" value="2" id="radio2">платное</input>
+                <input class="radio" type="radio" name="payment" value="3" id="radio3">VIP</input>
+                <span class="error" id="radioError"></span>
+            </div>
+        </div>
+
+        <div class="box">
+            <div>
+                <label>Разрешить отзывы:</label>
+            </div>
+            <div>
+                <input class="checkokay" type="checkbox" name="votes" id="check"></input>
+                <span class="error" id="checkError"></span>
+            </div>
+        </div>
+        
+        <div class="box">
+            <div>
+                <label>Описание сайта:</label>
+            </div>
+        </div>
+        <div>
+            <textarea class="textarea" name="description" id="description"></textarea>
+            <span class="error" id="descriptionError"></span>
+        </div>
+        
+        <button class="submit">Опубликовать</button>
+    </form>
 
     <script src="./VALID_FORM.js"></script>
 </body>
