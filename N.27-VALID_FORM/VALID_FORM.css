@@ -27,10 +27,11 @@ div span {
 }
 
 input, button, select {
+    margin-left: 10px;
     cursor: pointer;
 }
 
 textarea {
     cursor: text;
-    width: 50%;
+    width: 25%;
 }
