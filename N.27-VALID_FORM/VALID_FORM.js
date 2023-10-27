@@ -2,7 +2,7 @@ const form = document.getElementById("form");
 
 form.addEventListener(
   "submit",
-  function (event) {
+  function (e) {
     if (
       !devCheck() |
       !siteCheck() |
@@ -16,7 +16,7 @@ form.addEventListener(
       !descCheck()
     ) {
       focusMove();
-      event.preventDefault();
+      e.preventDefault();
     }
   },
   false
