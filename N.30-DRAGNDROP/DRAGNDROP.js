@@ -17,8 +17,8 @@ function findElements() {
 
 function dragItem(e) {
   e.onmousedown = function (event) {
-    shiftX = event.clientX - e.getBoundingClientRect().left;
-    shiftY = event.clientY - e.getBoundingClientRect().top;
+    let shiftX = event.clientX - e.getBoundingClientRect().left;
+    let shiftY = event.clientY - e.getBoundingClientRect().top;
 
     e.classList.add("totake");
 
