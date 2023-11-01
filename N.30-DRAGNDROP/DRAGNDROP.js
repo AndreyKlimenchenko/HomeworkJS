@@ -3,7 +3,7 @@ window.onload = function () {
 };
 
 function findElements() {
-  const array = document.getElementsByClassName("ball");
+  const array = document.getElementsByClassName("picture");
   for (let i = array.length - 1; i >= 0; i--) {
     array[i].style.position = "absolute";
     array[i].style.zIndex = 1;
