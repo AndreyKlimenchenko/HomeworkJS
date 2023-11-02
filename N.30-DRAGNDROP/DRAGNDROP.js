@@ -3,15 +3,34 @@ window.onload = function () {
 };
 
 function findElements() {
-  const array = document.getElementsByClassName("picture");
-  for (let i = array.length - 1; i >= 0; i--) {
-    array[i].style.position = "absolute";
-    array[i].style.zIndex = 1;
-    let coords = array[i].getBoundingClientRect();
-    array[i].style.left = coords.left + "px";
-    array[i].style.top = coords.top + "px";
+  const img1 = document.createElement("img");
+  const img2 = document.createElement("img");
+  const img3 = document.createElement("img");
+  const img4 = document.createElement("img");
 
-    dragItem(array[i]);
+  img1.src = "./img/musical.png";
+  img2.src = "./img/japan.png";
+  img3.src = "./img/humans.png";
+  img4.src = "./img/smoke.png";
+
+  const box = document.createElement("div");
+  box.style.position = "relative";
+  box.style.height = "250px";
+
+  document.body.appendChild(box);
+
+  const array = [img1, img2, img3, img4];
+
+  for (let i = array.length - 1; i >= 0; i--) {
+    const element = array[i];
+    element.style.zIndex = 1;
+    element.style.width = "150px";
+    element.style.position = "absolute";
+    const coords = element.getBoundingClientRect();
+    element.style.left = coords.left + i * 150 + "px";
+    element.style.bottom = "0px";
+    box.appendChild(element);
+    dragItem(element);
   }
 }
 
