@@ -18,13 +18,18 @@
 
       function findElements() {
         const array = document.getElementsByTagName("img");
+        const imgCoords = {};
+
+        for (let i = array.length - 1; i >= 0; i--) {
+          imgCoords[i] = { left: array[i].offsetLeft, top: array[i].offsetTop };
+        }
+        
         for (let i = array.length - 1; i >= 0; i--) {
           array[i].style.position = "absolute";
           array[i].style.zIndex = 1;
           let coords = array[i].getBoundingClientRect();
-          array[i].style.left = coords.left + "px";
-          array[i].style.top = coords.top + "px";
-
+          array[i].style.left = imgCoords[i].left + "px";
+          array[i].style.top = imgCoords[i].top + "px";
           dragItem(array[i]);
         }
       }
