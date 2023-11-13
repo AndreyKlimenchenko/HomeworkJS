@@ -46,7 +46,7 @@ function updateTime() {
     arrowHourMovement(currTime.getHours(), currTime.getMinutes());
     arrowMinuteMovement(currTime.getMinutes(), currTime.getSeconds());
     arrowSecondMovement(currTime.getSeconds());
-    setTimeout(updateTime, 1010);
+    setTimeout(updateTime, 1000);
     console.log(timeNow);
 }
 
