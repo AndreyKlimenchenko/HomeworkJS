@@ -1,12 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>CLOCK_CANVAS</title>
-    <link rel="stylesheet" href="./CLOCK_CANVAS.css" />
-</head>
-<body>
+  </head>
+  <body>
+    <label class="label">
+      Задайте размер часов:
+      <input id="size" type="number" name="size" min="200" max="800" />
+      <button class="btn">Создать часы</button>
+    </label>
+    <div id="container"></div>
     <script src="./CLOCK_CANVAS.js"></script>
-</body>
+  </body>
 </html>
