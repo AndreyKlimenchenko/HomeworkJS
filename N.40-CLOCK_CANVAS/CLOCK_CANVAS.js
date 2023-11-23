@@ -23,6 +23,7 @@ function getValue(e) {
 btn.addEventListener("click", getValue);
 
 let context;
+let time;
 
 function createClock(value) {
   let canvas = document.createElement("CANVAS");
@@ -35,6 +36,7 @@ function createClock(value) {
   let radius = value / 2;
   context.translate(radius, radius);
   radius = radius * 0.9;
+  updateTime(diameter);
 }
 
 function updateTime(diametrValue) {
@@ -43,7 +45,7 @@ function updateTime(diametrValue) {
   createClockBackground(context);
   createNumCircles(context, radiusValue);
   const currTime = new Date();
-  let time =
+  time =
     str0l(currTime.getHours(), 2) +
     ":" +
     str0l(currTime.getMinutes(), 2) +
@@ -53,7 +55,6 @@ function updateTime(diametrValue) {
   arrowHourMovement(currTime.getHours(), currTime.getMinutes());
   arrowMinuteMovement(currTime.getMinutes(), currTime.getSeconds());
   arrowSecondMovement(currTime.getSeconds());
-  console.log(time);
 }
 
 function str0l(val, len) {
@@ -71,7 +72,6 @@ function createClockBackground() {
   clockArea.strokeStyle = "#FCCA66";
   clockArea.lineWidth = (diameter / 2) * 0.01;
   clockArea.stroke();
-
   return clockArea;
 }
 
@@ -179,5 +179,6 @@ function arrowSecondMovement(nowSecond) {
 setInterval(function () {
   if (diameter) {
     updateTime(diameter);
+    console.log(time);
   }
 }, 1000);
