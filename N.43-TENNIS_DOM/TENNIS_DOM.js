@@ -214,7 +214,7 @@ function tick() {
   player2.update();
 }
 
-const game = setInterval(tick, 40);
+setInterval(tick, 40);
 
 field.update();
 ball.update();
