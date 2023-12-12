@@ -4,32 +4,49 @@ function game() {
     let isPause = false;
     let animationId = null;
 
-    console.log(window);
-
-    const speed = 3;
+    const speed = 10;
 
     const car = document.querySelector('.car');
     const trees = document.querySelectorAll('.tree');
 
-    const tree1 = trees[0]; // достал дерево
-    const cordsTree1 = getCords(tree1); //достаю координаты первого дерева
+    const treesCoords = [];
+
+    for(let i = 0; i < trees.length; i++) {
+        const tree = trees[i];
+        const coordsTree = getCords(tree);
+
+        treesCoords.push(coordsTree); // добавляю координаты в массив
+    }
 
     animationId = requestAnimationFrame(startGame); //анимация
 
     function startGame() { // запуск игры
-        // treesAnimation(); //анимация деревьев
+        treesAnimation(); //анимация деревьев
 
-        // animationId = requestAnimationFrame(startGame);
+        animationId = requestAnimationFrame(startGame);
     };
 
     function treesAnimation() { //анимация деревьев
-        const newCoordY = cordsTree1.y + speed; //смена координат, каждый раз плюс скорость
-        cordsTree1.y = newCoordY; //меняю только у координату
-        tree1.style.transform = `translate(${cordsTree1.x}px, ${newCoordY}px)`; // ставлю новое значение координат
+
+        for(let i = 0; i < trees.length; i++) {
+            const tree = trees[i];
+            const coords = treesCoords[i];
+
+            let newYCoord = coords.y + speed; //смена координат, каждый раз плюс скорость
+        
+            if (newYCoord > window.innerHeight) {
+                newYCoord = -370; // высота самого большого дерева
+            }
+            
+            treesCoords[i].y = newYCoord;//меняю только у координату
+
+            tree.style.transform = `translate(${coords.x}px, ${newYCoord}px)`; // ставлю новое значение координат
+        }
+
+       
     }
 
     function getCords(element) { //достаю координаты элемента
-        console.log(element);
         const matrix = window.getComputedStyle(element).transform; // достаю стиль
         const array = matrix.split(','); //по запятым
         const y = array[array.length - 1]; //последний элемент
