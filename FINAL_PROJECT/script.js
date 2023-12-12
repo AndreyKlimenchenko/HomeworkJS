@@ -7,6 +7,12 @@ function game() {
     const speed = 3;
 
     const car = document.querySelector('.car');
+    const carWidth = car.clientWidth;
+    const carHeight = car.clientHeight;
+
+    const road = document.querySelector('.road');
+    const roadHeight = road.clientHeight;
+
     const trees = document.querySelectorAll('.tree');
 
     const carCoords = getCoords(car);
@@ -72,6 +78,11 @@ function game() {
 
     function carMoveToTop() { // расчет координат машины
         const newY = carCoords.y - 5;
+
+        if (newY < 0) { // ограничение проезда машины вверх по размеру дороги
+            return;
+        }
+        
         carCoords.y = newY;
         carMove(carCoords.x, newY);
         carMoveInfo.top = requestAnimationFrame(carMoveToTop); 
@@ -79,6 +90,11 @@ function game() {
 
     function carMoveToBottom() { // расчет координат машины
         const newY = carCoords.y + 5;
+
+        if ((newY + carHeight) > roadHeight) { // ограничение проезда машины вниз по размеру дороги
+            return;
+        }
+
         carCoords.y = newY;
         carMove(carCoords.x, newY);
         carMoveInfo.bottom = requestAnimationFrame(carMoveToBottom);
