@@ -14,6 +14,15 @@ function game() {
     const coinCoord = getCoords(coin);
     const coinWidth = coin.clientWidth / 2; // деление для расчета влево/вправо от середины, чтобы не заезжать за край
 
+    const danger = document.querySelector('.danger');
+    const dangerCoord = getCoords(danger);
+    const dangerWidth = danger.clientWidth / 2; // деление для расчета влево/вправо от середины, чтобы не заезжать за край
+
+
+    const arrow = document.querySelector('.arrow');
+    const arrowCoord = getCoords(arrow);
+    const arrowWidth = arrow.clientWidth / 2; // деление для расчета влево/вправо от середины, чтобы не заезжать за край
+
 
     const road = document.querySelector('.road');
     const roadHeight = road.clientHeight;
@@ -159,6 +168,8 @@ function game() {
     function startGame() { // запуск игры
         treesAnimation(); //анимация деревьев
         coinAnimation();
+        dangerAnimation();
+        arrowAnimation();
 
         animationId = requestAnimationFrame(startGame);
     };
@@ -209,6 +220,66 @@ function game() {
         coin.style.transform = `translate(${newXCoord}px, ${newYCoord}px)`; // ставлю новое значение координат
 
     }
+
+
+    function dangerAnimation() {
+        let newYCoord = dangerCoord.y + speed; // текущая координата + скорость
+        let newXCoord = dangerCoord.x;
+
+        if (newYCoord > window.innerHeight) {
+            newYCoord = -100; // высота коина с запасом 
+
+            const direction = parseInt(Math.random() * 2); // рандом 1 или 2
+            const maxXCoord = roadWidth + 1 - dangerWidth; // рандомные координаты в пределах дороги
+            const randomXCoord = parseInt(Math.random() * maxXCoord); 
+    
+            if (direction === 0) { //двигаю монету влево
+                newXCoord = -randomXCoord;
+            }
+            else if (direction === 1) { //двигаю монету вправо
+                newXCoord = randomXCoord;
+            }
+        }
+
+
+
+        dangerCoord.y = newYCoord;
+        dangerCoord.x = newXCoord;
+        danger.style.transform = `translate(${newXCoord}px, ${newYCoord}px)`; // ставлю новое значение координат
+
+    }
+
+
+
+    function arrowAnimation() {
+        let newYCoord = arrowCoord.y + speed; // текущая координата + скорость
+        let newXCoord = arrowCoord.x;
+
+        if (newYCoord > window.innerHeight) {
+            newYCoord = -100; // высота коина с запасом 
+
+            const direction = parseInt(Math.random() * 2); // рандом 1 или 2
+            const maxXCoord = roadWidth + 1 - arrowWidth; // рандомные координаты в пределах дороги
+            const randomXCoord = parseInt(Math.random() * maxXCoord); 
+    
+            if (direction === 0) { //двигаю монету влево
+                newXCoord = -randomXCoord;
+            }
+            else if (direction === 1) { //двигаю монету вправо
+                newXCoord = randomXCoord;
+            }
+        }
+
+
+
+        arrowCoord.y = newYCoord;
+        arrowCoord.x = newXCoord;
+        arrow.style.transform = `translate(${newXCoord}px, ${newYCoord}px)`; // ставлю новое значение координат
+
+    }
+
+
+
 
     function getCoords(element) { //достаю координаты элемента
         const matrix = window.getComputedStyle(element).transform; // достаю стиль
