@@ -49,19 +49,19 @@ function game() {
 
         if (code === 'ArrowUp') {
             cancelAnimationFrame(carMoveInfo.top);
-            carMoveInfo.top === null;
+            carMoveInfo.top = null;
         }
         else if (code === 'ArrowDown') {
             cancelAnimationFrame(carMoveInfo.bottom);
-            carMoveInfo.bottom === null;
+            carMoveInfo.bottom = null;
         }
         else if (code === 'ArrowLeft') {
             cancelAnimationFrame(carMoveInfo.left);
-            carMoveInfo.left === null;
+            carMoveInfo.left = null;
         }
         else if (code === 'ArrowRight') {
             cancelAnimationFrame(carMoveInfo.right);
-            carMoveInfo.right === null;
+            carMoveInfo.right = null;
         }
     });
 
