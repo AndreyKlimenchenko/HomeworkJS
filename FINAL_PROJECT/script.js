@@ -10,6 +10,11 @@ function game() {
     const carWidth = car.clientWidth / 2; // деление для расчета влево/вправо от середины, чтобы не заезжать за край
     const carHeight = car.clientHeight;
 
+    const coin = document.querySelector('.coin');
+    const coinCoord = getCoords(coin);
+    const coinWidth = coin.clientWidth / 2; // деление для расчета влево/вправо от середины, чтобы не заезжать за край
+
+
     const road = document.querySelector('.road');
     const roadHeight = road.clientHeight;
     const roadWidth = road.clientWidth / 2; // деление для расчета влево/вправо от середины, чтобы не заезжать за край
@@ -42,7 +47,7 @@ function game() {
         const code = event.code;
 
         if (code === 'ArrowUp' && carMoveInfo.top === null) {
-            
+
             if (carMoveInfo.bottom) { // чтобы не стояла на месте при нажатии двух клавиш
                 return;
             }
@@ -153,6 +158,7 @@ function game() {
 
     function startGame() { // запуск игры
         treesAnimation(); //анимация деревьев
+        coinAnimation();
 
         animationId = requestAnimationFrame(startGame);
     };
@@ -175,6 +181,33 @@ function game() {
         }
 
        
+    }
+
+    function coinAnimation() {
+        let newYCoord = coinCoord.y + speed; // текущая координата + скорость
+        let newXCoord = coinCoord.x;
+
+        if (newYCoord > window.innerHeight) {
+            newYCoord = -100; // высота коина с запасом 
+
+            const direction = parseInt(Math.random() * 2); // рандом 1 или 2
+            const maxXCoord = roadWidth + 1 - coinWidth; // рандомные координаты в пределах дороги
+            const randomXCoord = parseInt(Math.random() * maxXCoord); 
+    
+            if (direction === 0) { //двигаю монету влево
+                newXCoord = -randomXCoord;
+            }
+            else if (direction === 1) { //двигаю монету вправо
+                newXCoord = randomXCoord;
+            }
+        }
+
+
+
+        coinCoord.y = newYCoord;
+        coinCoord.x = newXCoord;
+        coin.style.transform = `translate(${newXCoord}px, ${newYCoord}px)`; // ставлю новое значение координат
+
     }
 
     function getCoords(element) { //достаю координаты элемента
