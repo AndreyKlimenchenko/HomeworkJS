@@ -40,15 +40,14 @@ function game() {
 
     const treesCoords = [];
 
-
     for(let i = 0; i < trees.length; i++) {
         const tree = trees[i];
         const coordsTree = getCoords(tree);
-
         treesCoords.push(coordsTree); // добавляю координаты в массив
     }
 
     document.addEventListener('keydown', (event) => {
+
         if (isPause) { // если пауза, выход из функции
             return;
         }
@@ -167,19 +166,16 @@ function game() {
 
     function startGame() { // запуск игры
         treesAnimation(); //анимация деревьев
-        coinAnimation();
-        dangerAnimation();
-        arrowAnimation();
-
+        elementAnimation(coin, coinCoord, coinWidth, -100);
+        elementAnimation(danger, dangerCoord, dangerWidth -250);
+        elementAnimation(arrow, arrowCoord, arrowWidth, -600);
         animationId = requestAnimationFrame(startGame);
     };
 
     function treesAnimation() { //анимация деревьев
-
         for(let i = 0; i < trees.length; i++) {
             const tree = trees[i];
             const coords = treesCoords[i];
-
             let newYCoord = coords.y + speed; //смена координат, каждый раз плюс скорость
         
             if (newYCoord > window.innerHeight) {
@@ -187,22 +183,18 @@ function game() {
             }
             
             treesCoords[i].y = newYCoord;//меняю только у координату
-
             tree.style.transform = `translate(${coords.x}px, ${newYCoord}px)`; // ставлю новое значение координат
         }
-
-       
     }
 
-    function coinAnimation() {
-        let newYCoord = coinCoord.y + speed; // текущая координата + скорость
-        let newXCoord = coinCoord.x;
+    function elementAnimation(element, elementCoord, elementWidth, elementInitialCoord) {
+        let newYCoord = elementCoord.y + speed; // текущая координата + скорость
+        let newXCoord = elementCoord.x;
 
         if (newYCoord > window.innerHeight) {
-            newYCoord = -100; // высота коина с запасом 
-
+            newYCoord = elementInitialCoord; // высота появления эелемента
             const direction = parseInt(Math.random() * 2); // рандом 1 или 2
-            const maxXCoord = roadWidth + 1 - coinWidth; // рандомные координаты в пределах дороги
+            const maxXCoord = roadWidth + 1 - elementWidth; // рандомные координаты в пределах дороги
             const randomXCoord = parseInt(Math.random() * maxXCoord); 
     
             if (direction === 0) { //двигаю монету влево
@@ -215,71 +207,10 @@ function game() {
 
 
 
-        coinCoord.y = newYCoord;
-        coinCoord.x = newXCoord;
-        coin.style.transform = `translate(${newXCoord}px, ${newYCoord}px)`; // ставлю новое значение координат
-
+        elementCoord.y = newYCoord;
+        elementCoord.x = newXCoord;
+        element.style.transform = `translate(${newXCoord}px, ${newYCoord}px)`; // ставлю новое значение координат
     }
-
-
-    function dangerAnimation() {
-        let newYCoord = dangerCoord.y + speed; // текущая координата + скорость
-        let newXCoord = dangerCoord.x;
-
-        if (newYCoord > window.innerHeight) {
-            newYCoord = -100; // высота коина с запасом 
-
-            const direction = parseInt(Math.random() * 2); // рандом 1 или 2
-            const maxXCoord = roadWidth + 1 - dangerWidth; // рандомные координаты в пределах дороги
-            const randomXCoord = parseInt(Math.random() * maxXCoord); 
-    
-            if (direction === 0) { //двигаю монету влево
-                newXCoord = -randomXCoord;
-            }
-            else if (direction === 1) { //двигаю монету вправо
-                newXCoord = randomXCoord;
-            }
-        }
-
-
-
-        dangerCoord.y = newYCoord;
-        dangerCoord.x = newXCoord;
-        danger.style.transform = `translate(${newXCoord}px, ${newYCoord}px)`; // ставлю новое значение координат
-
-    }
-
-
-
-    function arrowAnimation() {
-        let newYCoord = arrowCoord.y + speed; // текущая координата + скорость
-        let newXCoord = arrowCoord.x;
-
-        if (newYCoord > window.innerHeight) {
-            newYCoord = -100; // высота коина с запасом 
-
-            const direction = parseInt(Math.random() * 2); // рандом 1 или 2
-            const maxXCoord = roadWidth + 1 - arrowWidth; // рандомные координаты в пределах дороги
-            const randomXCoord = parseInt(Math.random() * maxXCoord); 
-    
-            if (direction === 0) { //двигаю монету влево
-                newXCoord = -randomXCoord;
-            }
-            else if (direction === 1) { //двигаю монету вправо
-                newXCoord = randomXCoord;
-            }
-        }
-
-
-
-        arrowCoord.y = newYCoord;
-        arrowCoord.x = newXCoord;
-        arrow.style.transform = `translate(${newXCoord}px, ${newYCoord}px)`; // ставлю новое значение координат
-
-    }
-
-
-
 
     function getCoords(element) { //достаю координаты элемента
         const matrix = window.getComputedStyle(element).transform; // достаю стиль
@@ -288,13 +219,13 @@ function game() {
         const x = array[array.length - 2]; //последний элемент
         const numericY = parseFloat(y); //преобразование строки к числу
         const numericX = parseFloat(x); //преобразование к числу
-        
         return { x: numericX, y: numericY };
     };
 
     const gameButton = document.querySelector('.game-button');
     gameButton.addEventListener('click', () => {
         isPause = !isPause;
+
         if (isPause) {
             cancelAnimationFrame(animationId); // если на паузе, останавливаю работу анимации (стоп функции startGame)
             cancelAnimationFrame(carMoveInfo.top); // если на паузе, останавливаю движение авто
@@ -310,5 +241,4 @@ function game() {
             gameButton.children[1].style.display = 'none';
         }
     });
-
 };
