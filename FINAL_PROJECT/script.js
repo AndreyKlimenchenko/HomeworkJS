@@ -167,7 +167,7 @@ function game() {
     function startGame() { // запуск игры
         treesAnimation(); //анимация деревьев
         elementAnimation(coin, coinCoord, coinWidth, -100);
-        elementAnimation(danger, dangerCoord, dangerWidth -250);
+        elementAnimation(danger, dangerCoord, dangerWidth, -250);
         elementAnimation(arrow, arrowCoord, arrowWidth, -600);
         animationId = requestAnimationFrame(startGame);
     };
