@@ -28,6 +28,10 @@ function game() {
     }
 
     document.addEventListener('keydown', (event) => {
+        if (isPause) { // если пауза, выход из функции
+            return;
+        }
+
         const code = event.code;
 
         if (code === 'ArrowUp' && carMoveInfo.top === null) {
@@ -142,7 +146,11 @@ function game() {
         isPause = !isPause;
         if (isPause) {
             cancelAnimationFrame(animationId); // если на паузе, останавливаю работу анимации (стоп функции startGame)
-            gameButton.children[0].style.display = 'none';
+            cancelAnimationFrame(carMoveInfo.top); // если на паузе, останавливаю движение авто
+            cancelAnimationFrame(carMoveInfo.bottom); // если на паузе, останавливаю движение авто
+            cancelAnimationFrame(carMoveInfo.left); // если на паузе, останавливаю движение авто
+            cancelAnimationFrame(carMoveInfo.right); // если на паузе, останавливаю движение авто
+            gameButton.children[0].style.display = 'none'; 
             gameButton.children[1].style.display = 'initial';
         }
         else {
