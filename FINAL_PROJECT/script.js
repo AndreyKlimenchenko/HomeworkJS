@@ -7,11 +7,12 @@ function game() {
     const speed = 3;
 
     const car = document.querySelector('.car');
-    const carWidth = car.clientWidth;
+    const carWidth = car.clientWidth / 2; // деление для расчета влево/вправо от середины, чтобы не заезжать за край
     const carHeight = car.clientHeight;
 
     const road = document.querySelector('.road');
     const roadHeight = road.clientHeight;
+    const roadWidth = road.clientWidth / 2; // деление для расчета влево/вправо от середины, чтобы не заезжать за край
 
     const trees = document.querySelectorAll('.tree');
 
@@ -41,15 +42,35 @@ function game() {
         const code = event.code;
 
         if (code === 'ArrowUp' && carMoveInfo.top === null) {
+            
+            if (carMoveInfo.bottom) { // чтобы не стояла на месте при нажатии двух клавиш
+                return;
+            }
+
             carMoveInfo.top = requestAnimationFrame(carMoveToTop); 
         }
         else if (code === 'ArrowDown' && carMoveInfo.bottom === null) {
+
+            if (carMoveInfo.top) { // чтобы не стояла на месте при нажатии двух клавиш
+                return;
+            }
+
             carMoveInfo.bottom = requestAnimationFrame(carMoveToBottom); 
         }
         else if (code === 'ArrowLeft' && carMoveInfo.left === null) {
+
+            if (carMoveInfo.right) { // чтобы не стояла на месте при нажатии двух клавиш
+                return;
+            }
+
             carMoveInfo.left = requestAnimationFrame(carMoveToLeft); 
         }
         else if (code === 'ArrowRight' && carMoveInfo.right === null) {
+
+            if (carMoveInfo.left) { // чтобы не стояла на месте при нажатии двух клавиш
+                return;
+            }
+
             carMoveInfo.right = requestAnimationFrame(carMoveToRight); 
         }
     });
@@ -82,7 +103,7 @@ function game() {
         if (newY < 0) { // ограничение проезда машины вверх по размеру дороги
             return;
         }
-        
+
         carCoords.y = newY;
         carMove(carCoords.x, newY);
         carMoveInfo.top = requestAnimationFrame(carMoveToTop); 
@@ -102,6 +123,11 @@ function game() {
 
     function carMoveToLeft() { // расчет координат машины
         const newX = carCoords.x - 5;
+
+        if (newX < -roadWidth + carWidth) { // ограничение движения по ширине дороги
+            return;
+        }
+
         carCoords.x = newX;
         carMove(newX, carCoords.y);
         carMoveInfo.left = requestAnimationFrame(carMoveToLeft); 
@@ -109,6 +135,11 @@ function game() {
 
     function carMoveToRight() { // расчет координат машины
         const newX = carCoords.x + 5;
+
+        if (newX > roadWidth - carWidth) { // ограничение движения по ширине дороги
+            return;
+        }
+
         carCoords.x = newX;
         carMove(newX, carCoords.y);
         carMoveInfo.right = requestAnimationFrame(carMoveToRight); 
