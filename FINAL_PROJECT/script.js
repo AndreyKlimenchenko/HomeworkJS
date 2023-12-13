@@ -7,29 +7,6 @@ function game() {
     const speed = 3;
 
     const car = document.querySelector('.car');
-    const carWidth = car.clientWidth / 2; // деление для расчета влево/вправо от середины, чтобы не заезжать за край
-    const carHeight = car.clientHeight;
-
-    const coin = document.querySelector('.coin');
-    const coinCoord = getCoords(coin);
-    const coinWidth = coin.clientWidth / 2; // деление для расчета влево/вправо от середины, чтобы не заезжать за край
-
-    const danger = document.querySelector('.danger');
-    const dangerCoord = getCoords(danger);
-    const dangerWidth = danger.clientWidth / 2; // деление для расчета влево/вправо от середины, чтобы не заезжать за край
-
-
-    const arrow = document.querySelector('.arrow');
-    const arrowCoord = getCoords(arrow);
-    const arrowWidth = arrow.clientWidth / 2; // деление для расчета влево/вправо от середины, чтобы не заезжать за край
-
-
-    const road = document.querySelector('.road');
-    const roadHeight = road.clientHeight;
-    const roadWidth = road.clientWidth / 2; // деление для расчета влево/вправо от середины, чтобы не заезжать за край
-
-    const trees = document.querySelectorAll('.tree');
-
     const carCoords = getCoords(car);
     const carMoveInfo = {
         top: null,
@@ -37,6 +14,29 @@ function game() {
         left: null,
         right: null,
     };
+    const carWidth = car.clientWidth / 2; // деление для расчета влево/вправо от середины, чтобы не заезжать за край
+    const carHeight = car.clientHeight;
+
+    const coin = document.querySelector('.coin');
+    const coinCoord = getCoords(coin);
+    const coinWidth = coin.clientWidth / 2; // деление для расчета влево/вправо от середины, чтобы не заезжать за край
+    const coinHeight = coin.clientHeight;
+
+    // const danger = document.querySelector('.danger');
+    // const dangerCoord = getCoords(danger);
+    // const dangerWidth = danger.clientWidth / 2; // деление для расчета влево/вправо от середины, чтобы не заезжать за край
+
+
+    // const arrow = document.querySelector('.arrow');
+    // const arrowCoord = getCoords(arrow);
+    // const arrowWidth = arrow.clientWidth / 2; // деление для расчета влево/вправо от середины, чтобы не заезжать за край
+
+
+    const road = document.querySelector('.road');
+    const roadHeight = road.clientHeight;
+    const roadWidth = road.clientWidth / 2; // деление для расчета влево/вправо от середины, чтобы не заезжать за край
+
+    const trees = document.querySelectorAll('.tree');
 
     const treesCoords = [];
 
@@ -48,9 +48,9 @@ function game() {
 
     document.addEventListener('keydown', (event) => {
 
-        if (isPause) { // если пауза, выход из функции
-            return;
-        }
+        // if (isPause) { // если пауза, выход из функции, чтобы не двигалась машина
+        //     return;
+        // }
 
         const code = event.code;
 
@@ -113,9 +113,9 @@ function game() {
     function carMoveToTop() { // расчет координат машины
         const newY = carCoords.y - 5;
 
-        if (newY < 0) { // ограничение проезда машины вверх по размеру дороги
-            return;
-        }
+        // if (newY < 0) { // ограничение проезда машины вверх по размеру дороги
+        //     return;
+        // }
 
         carCoords.y = newY;
         carMove(carCoords.x, newY);
@@ -125,9 +125,9 @@ function game() {
     function carMoveToBottom() { // расчет координат машины
         const newY = carCoords.y + 5;
 
-        if ((newY + carHeight) > roadHeight) { // ограничение проезда машины вниз по размеру дороги
-            return;
-        }
+        // if ((newY + carHeight) > roadHeight) { // ограничение проезда машины вниз по размеру дороги
+        //     return;
+        // }
 
         carCoords.y = newY;
         carMove(carCoords.x, newY);
@@ -137,9 +137,9 @@ function game() {
     function carMoveToLeft() { // расчет координат машины
         const newX = carCoords.x - 5;
 
-        if (newX < -roadWidth + carWidth) { // ограничение движения по ширине дороги
-            return;
-        }
+        // if (newX < -roadWidth + carWidth) { // ограничение движения по ширине дороги
+        //     return;
+        // }
 
         carCoords.x = newX;
         carMove(newX, carCoords.y);
@@ -149,9 +149,9 @@ function game() {
     function carMoveToRight() { // расчет координат машины
         const newX = carCoords.x + 5;
 
-        if (newX > roadWidth - carWidth) { // ограничение движения по ширине дороги
-            return;
-        }
+        // if (newX > roadWidth - carWidth) { // ограничение движения по ширине дороги
+        //     return;
+        // }
 
         carCoords.x = newX;
         carMove(newX, carCoords.y);
@@ -159,6 +159,7 @@ function game() {
     }
 
     function carMove(x, y) {
+        console.log(hasCollision());
         car.style.transform = `translate(${x}px, ${y}px)`; // ставлю новое значение координат
     }
 
@@ -167,8 +168,8 @@ function game() {
     function startGame() { // запуск игры
         treesAnimation(); //анимация деревьев
         elementAnimation(coin, coinCoord, coinWidth, -100);
-        elementAnimation(danger, dangerCoord, dangerWidth, -250);
-        elementAnimation(arrow, arrowCoord, arrowWidth, -600);
+        // elementAnimation(danger, dangerCoord, dangerWidth, -250);
+        // elementAnimation(arrow, arrowCoord, arrowWidth, -600);
         animationId = requestAnimationFrame(startGame);
     };
 
@@ -221,6 +222,31 @@ function game() {
         const numericX = parseFloat(x); //преобразование к числу
         return { x: numericX, y: numericY };
     };
+
+    function hasCollision() {
+        const carYTop = carCoords.y;
+        const carYBottom = carCoords.y + carHeight;
+
+        const carXleft = carCoords.x - carWidth; // минус и плюс половина, потому что координаты середины
+        const carXRight = carCoords.x + carWidth; // минус и плюс половина, потому что координаты середины
+
+        const coinYTop = coinCoord.y;
+        const coinYBottom = coinCoord.y + coinHeight;
+
+        const coinXleft = coinCoord.x - coinWidth; // минус и плюс половина, потому что координаты середины
+        const coinXRight = coinCoord.x + coinWidth; // минус и плюс половина, потому что координаты середины
+
+        if (carYTop > coinYBottom || carYBottom < coinYTop) { // столкновение по координате у
+            return false;
+        }
+
+        if (carXleft > coinXRight || carXRight < coinXleft) { // столкновение по координате х
+            return false;
+        }
+
+        return true;
+    }
+
 
     const gameButton = document.querySelector('.game-button');
     gameButton.addEventListener('click', () => {
