@@ -186,6 +186,7 @@ function game() {
         
         if (coinInfo.visible && hasCollision(carInfo, coinInfo)) { // если элемент виден и произошла коллизия, эелемент скрывается
             score++;
+            window.navigator.vibrate(200);
             const audio = new Audio('./sound/coin.mp3');
             audio.play();
             gameScore.innerText = score;
@@ -288,6 +289,7 @@ function game() {
         drop.style.display = 'flex';
         const scoreText = drop.querySelector('.restart-text-score');
         scoreText.innerText = score;
+        window.navigator.vibrate(200);
         const audio = new Audio('./sound/crush.mp3');
         audio.play();
     }
