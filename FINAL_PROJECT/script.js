@@ -37,6 +37,10 @@ function game() {
     const trees = document.querySelectorAll('.tree');
     const treesCoords = [];
 
+
+    const audio = document.querySelector('.audio');
+    console.log(audio);
+
     for(let i = 0; i < trees.length; i++) {
         const tree = trees[i];
         const coordsTree = getCoords(tree);
@@ -170,6 +174,7 @@ function game() {
     animationId = requestAnimationFrame(startGame); //анимация
 
     function startGame() { // запуск игры
+        // audio.play();
         elementAnimation(danger, dangerInfo, -250);
 
         if (hasCollision(carInfo, dangerInfo)) { //если наехал на препятствие, игра заканчивается
@@ -181,6 +186,8 @@ function game() {
         
         if (coinInfo.visible && hasCollision(carInfo, coinInfo)) { // если элемент виден и произошла коллизия, эелемент скрывается
             score++;
+            const audio = new Audio('./sound/coin.mp3');
+            audio.play();
             gameScore.innerText = score;
             coin.style.display = 'none';
             coinInfo.visible = false;
@@ -281,6 +288,8 @@ function game() {
         drop.style.display = 'flex';
         const scoreText = drop.querySelector('.restart-text-score');
         scoreText.innerText = score;
+        const audio = new Audio('./sound/crush.mp3');
+        audio.play();
     }
 
     gameButton.addEventListener('click', () => {
