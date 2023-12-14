@@ -30,6 +30,12 @@ function game() {
 
     const gameButton = document.querySelector('.game-button');
     const gameScore = document.querySelector('.game-score');
+    const pauseButton = document.querySelector('.pause');
+
+
+    const name = document.querySelector('.name');
+    const nameButton = document.querySelector('.name-button');
+    let userName = '';
 
     const drop = document.querySelector('.drop');
     const restartButton = document.querySelector('.restart-button');
@@ -166,8 +172,6 @@ function game() {
         car.style.transform = `translate(${x}px, ${y}px)`; // ставлю новое значение координат
     }
 
-    animationId = requestAnimationFrame(startGame); //анимация
-
     function startGame() { // запуск игры
         elementAnimation(danger, dangerInfo, -250);
 
@@ -287,6 +291,7 @@ function game() {
         const audio = new Audio('./sound/crush.mp3');
         audio.play();
         window.navigator.vibrate(600);
+        localStorage.setItem(userName, score); // сохраняем успех юзера
     }
 
     gameButton.addEventListener('click', () => {
@@ -306,5 +311,20 @@ function game() {
 
     restartButton.addEventListener('click', () => {
         window.location.reload(); // при нажатии перезапускает страницу
+    });
+
+    nameButton.addEventListener('click', () => {
+        const nameInput = document.querySelector('.name-input');
+        userName = nameInput.value; // сохраняем в переменную
+        if (!nameInput.value) {
+            return;
+        } 
+        name.style.display = 'none';
+        animationId = requestAnimationFrame(startGame); //анимация и вся игра запускается
+        gameScore.style.display = 'flex';
+        pauseButton.style.display = 'block';
+        const savedUserScore = localStorage.getItem(userName); //проверяем начичие предыдущих очков юзера
+        score = Number(savedUserScore) || 0; //есть очки есть, то записываем в начальный успех новой игры
+        gameScore.innerText = score; 
     });
 };
