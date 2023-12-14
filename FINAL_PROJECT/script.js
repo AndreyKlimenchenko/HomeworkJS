@@ -32,7 +32,6 @@ function game() {
     const gameScore = document.querySelector('.game-score');
     const pauseButton = document.querySelector('.pause');
 
-
     const name = document.querySelector('.name');
     const nameButton = document.querySelector('.name-button');
     let userName = '';
