@@ -24,9 +24,6 @@ function game() {
     const danger = document.querySelector('.danger');
     const dangerInfo = createElementInfo(danger);
 
-    const arrow = document.querySelector('.arrow');
-    // const arrowInfo = createElementInfo(arrow);
-
     const road = document.querySelector('.road');
     const roadHeight = road.clientHeight;
     const roadWidth = road.clientWidth / 2; // деление для расчета влево/вправо от середины, чтобы не заезжать за край
@@ -38,7 +35,6 @@ function game() {
     const restartButton = document.querySelector('.restart-button');
 
     const trees = document.querySelectorAll('.tree');
-
     const treesCoords = [];
 
     for(let i = 0; i < trees.length; i++) {
@@ -193,9 +189,6 @@ function game() {
                 speed++;
             }
         }
-
-        // elementAnimation(arrow, arrowInfo, -600);
-
         animationId = requestAnimationFrame(startGame);
     };
 
@@ -228,7 +221,6 @@ function game() {
             element.style.display = 'initial';
             elementInfo.visible = true;
 
-
             if (direction === 0) { //двигаю монету влево
                 newXCoord = -randomXCoord;
             }
@@ -236,9 +228,6 @@ function game() {
                 newXCoord = randomXCoord;
             }
         }
-
-
-
         elementInfo.coords.y = newYCoord;
         elementInfo.coords.x = newXCoord;
         element.style.transform = `translate(${newXCoord}px, ${newYCoord}px)`; // ставлю новое значение координат
@@ -274,7 +263,6 @@ function game() {
         if (carXleft > coinXRight || carXRight < coinXleft) { // столкновение по координате х
             return false;
         }
-
         return true;
     }
 
@@ -311,6 +299,6 @@ function game() {
     });
 
     restartButton.addEventListener('click', () => {
-        window.location.reload();
+        window.location.reload(); // при нажатии перезапускает страницу
     });
 };

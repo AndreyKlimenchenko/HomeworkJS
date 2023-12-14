@@ -2,7 +2,7 @@ body {
     display: flex;
     justify-content: center;
     margin: 0;
-    background: #6c7b2a;
+    background: #947521;
     overflow: hidden;
 }
 
@@ -12,7 +12,7 @@ body {
     top: 10px;
     border-radius: 50%;
     color: white;
-    background-color: red;
+    background-color: #79c043;
     width: 50px;
     height: 50px;
     display: flex;
@@ -30,7 +30,7 @@ body {
 }
 
 .road {
-    background: #817f84;
+    background: #2c2b2d;
     width: 300px;
     height: 100vh;
 }
@@ -100,12 +100,6 @@ body {
     position: absolute;
     width: 50px;
     transform: translate(50px, -100px);
-}
-
-.arrow {
-    position: absolute;
-    width: 50px;
-    transform: translate(10px, -600px);
 }
 
 .drop {
