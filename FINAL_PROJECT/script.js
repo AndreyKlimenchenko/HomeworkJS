@@ -281,6 +281,7 @@ function game() {
         gameScore.style.display = 'none';
         gameButton.style.display = 'none';
         drop.style.display = 'flex';
+        drop.classList.add('drop-animation');
         const scoreText = drop.querySelector('.restart-text-score');
         scoreText.innerText = score;
         const audio = new Audio('./sound/crush.mp3');
