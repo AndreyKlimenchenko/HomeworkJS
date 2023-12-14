@@ -4,8 +4,8 @@ function game() {
     let isPause = false;
     let animationId = null;
 
-    const speed = 3;
-    let gameScore = 0;
+    let speed = 3;
+    let score = 0;
 
     const car = document.querySelector('.car');
     const carInfo = {
@@ -22,7 +22,7 @@ function game() {
     const coinInfo = createElementInfo(coin);
 
     const danger = document.querySelector('.danger');
-    // const dangerInfo = createElementInfo(danger);
+    const dangerInfo = createElementInfo(danger);
 
     const arrow = document.querySelector('.arrow');
     // const arrowInfo = createElementInfo(arrow);
@@ -30,6 +30,8 @@ function game() {
     const road = document.querySelector('.road');
     const roadHeight = road.clientHeight;
     const roadWidth = road.clientWidth / 2; // деление для расчета влево/вправо от середины, чтобы не заезжать за край
+
+    const gameScore = document.querySelector('.game-score');
 
     const trees = document.querySelectorAll('.tree');
 
@@ -109,6 +111,7 @@ function game() {
             coords: getCoords(element),
             height: element.clientHeight,
             width: element.clientWidth / 2,
+            visible: true,
         };
     }
 
@@ -168,18 +171,35 @@ function game() {
 
     function startGame() { // запуск игры
         treesAnimation(); //анимация деревьев
-        elementAnimation(coin, coinInfo.coords, coinInfo.width, -100);
+        elementAnimation(coin, coinInfo, -100);
         
-        if (hasCollision(carInfo, coinInfo)) {
-            gameScore++;
-            coin.style.opacity = 0.5;
+        if (coinInfo.visible && hasCollision(carInfo, coinInfo)) { // если элемент виден и произошла коллизия, эелемент скрывается
+            score++;
+            gameScore.innerText = score;
+            coin.style.display = 'none';
+            coinInfo.visible = false;
+
+            if (score % 2 === 0) { // каждые 2 монетки скорость прибавляется
+                speed++;
+            }
         }
         
         
-        // elementAnimation(danger, dangerInfo.coords, dangerInfo.width, -250);
-        // elementAnimation(arrow, arrowInfo.coords, arrowInfo.width, -600);
-        
-        console.log(hasCollision(carInfo, coinInfo));
+        elementAnimation(danger, dangerInfo, -250);
+
+
+        if (dangerInfo.visible && hasCollision(carInfo, dangerInfo)) { // если элемент виден и произошла коллизия, эелемент скрывается
+            dangerInfo.visible = false;
+            danger.style.display = 'none';
+
+            finishGame();
+            return;
+            // if () { 
+               
+            // }
+        }
+
+        // elementAnimation(arrow, arrowInfo, -600);
 
         animationId = requestAnimationFrame(startGame);
     };
@@ -199,17 +219,21 @@ function game() {
         }
     }
 
-    function elementAnimation(element, elementCoord, elementWidth, elementInitialCoord) {
-        let newYCoord = elementCoord.y + speed; // текущая координата + скорость
-        let newXCoord = elementCoord.x;
+    function elementAnimation(element, elementInfo, elementInitialCoord) {
+        let newYCoord = elementInfo.coords.y + speed; // текущая координата + скорость
+        let newXCoord = elementInfo.coords.x;
 
         if (newYCoord > window.innerHeight) {
             newYCoord = elementInitialCoord; // высота появления эелемента
             
             const direction = parseInt(Math.random() * 2); // рандом 1 или 2
-            const maxXCoord = roadWidth + 1 - elementWidth; // рандомные координаты в пределах дороги
+            const maxXCoord = roadWidth + 1 - elementInfo.width; // рандомные координаты в пределах дороги
             const randomXCoord = parseInt(Math.random() * maxXCoord); 
     
+            element.style.display = 'initial';
+            elementInfo.visible = true;
+
+
             if (direction === 0) { //двигаю монету влево
                 newXCoord = -randomXCoord;
             }
@@ -220,8 +244,8 @@ function game() {
 
 
 
-        elementCoord.y = newYCoord;
-        elementCoord.x = newXCoord;
+        elementInfo.coords.y = newYCoord;
+        elementInfo.coords.x = newXCoord;
         element.style.transform = `translate(${newXCoord}px, ${newYCoord}px)`; // ставлю новое значение координат
     }
 
@@ -257,6 +281,17 @@ function game() {
         }
 
         return true;
+    }
+
+
+    function finishGame() {
+        cancelAnimationFrame(animationId); // если на паузе, останавливаю работу анимации (стоп функции startGame)
+        cancelAnimationFrame(carInfo.move.top); // если на паузе, останавливаю движение авто
+        cancelAnimationFrame(carInfo.move.bottom); // если на паузе, останавливаю движение авто
+        cancelAnimationFrame(carInfo.move.left); // если на паузе, останавливаю движение авто
+        cancelAnimationFrame(carInfo.move.right); // если на паузе, останавливаю движение авто
+        gameButton.children[0].style.display = 'none'; 
+        gameButton.children[1].style.display = 'initial';
     }
 
 
