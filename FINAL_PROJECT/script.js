@@ -31,7 +31,11 @@ function game() {
     const roadHeight = road.clientHeight;
     const roadWidth = road.clientWidth / 2; // деление для расчета влево/вправо от середины, чтобы не заезжать за край
 
+    const gameButton = document.querySelector('.game-button');
     const gameScore = document.querySelector('.game-score');
+
+    const drop = document.querySelector('.drop');
+    const restartButton = document.querySelector('.restart-button');
 
     const trees = document.querySelectorAll('.tree');
 
@@ -45,9 +49,9 @@ function game() {
 
     document.addEventListener('keydown', (event) => {
 
-        // if (isPause) { // если пауза, выход из функции, чтобы не двигалась машина
-        //     return;
-        // }
+        if (isPause) { // если пауза, выход из функции, чтобы не двигалась машина
+            return;
+        }
 
         const code = event.code;
 
@@ -118,9 +122,9 @@ function game() {
     function carMoveToTop() { // расчет координат машины
         const newY = carInfo.coords.y - 5;
 
-        // if (newY < 0) { // ограничение проезда машины вверх по размеру дороги
-        //     return;
-        // }
+        if (newY < 0) { // ограничение проезда машины вверх по размеру дороги
+            return;
+        }
 
         carInfo.coords.y = newY;
         carMove(carInfo.coords.x, newY);
@@ -130,9 +134,9 @@ function game() {
     function carMoveToBottom() { // расчет координат машины
         const newY = carInfo.coords.y + 5;
 
-        // if ((newY + carInfo.height) > roadHeight) { // ограничение проезда машины вниз по размеру дороги
-        //     return;
-        // }
+        if ((newY + carInfo.height) > roadHeight) { // ограничение проезда машины вниз по размеру дороги
+            return;
+        }
 
         carInfo.coords.y = newY;
         carMove(carInfo.coords.x, newY);
@@ -142,9 +146,9 @@ function game() {
     function carMoveToLeft() { // расчет координат машины
         const newX = carInfo.coords.x - 5;
 
-        // if (newX < -roadWidth + carInfo.width) { // ограничение движения по ширине дороги
-        //     return;
-        // }
+        if (newX < -roadWidth + carInfo.width) { // ограничение движения по ширине дороги
+            return;
+        }
 
         carInfo.coords.x = newX;
         carMove(newX, carInfo.coords.y);
@@ -154,9 +158,9 @@ function game() {
     function carMoveToRight() { // расчет координат машины
         const newX = carInfo.coords.x + 5;
 
-        // if (newX > roadWidth - carInfo.width) { // ограничение движения по ширине дороги
-        //     return;
-        // }
+        if (newX > roadWidth - carInfo.width) { // ограничение движения по ширине дороги
+            return;
+        }
 
         carInfo.coords.x = newX;
         carMove(newX, carInfo.coords.y);
@@ -170,6 +174,12 @@ function game() {
     animationId = requestAnimationFrame(startGame); //анимация
 
     function startGame() { // запуск игры
+        elementAnimation(danger, dangerInfo, -250);
+
+        if (hasCollision(carInfo, dangerInfo)) { //если наехал на препятствие, игра заканчивается
+            return finishGame();;
+        }
+
         treesAnimation(); //анимация деревьев
         elementAnimation(coin, coinInfo, -100);
         
@@ -182,21 +192,6 @@ function game() {
             if (score % 2 === 0) { // каждые 2 монетки скорость прибавляется
                 speed++;
             }
-        }
-        
-        
-        elementAnimation(danger, dangerInfo, -250);
-
-
-        if (dangerInfo.visible && hasCollision(carInfo, dangerInfo)) { // если элемент виден и произошла коллизия, эелемент скрывается
-            dangerInfo.visible = false;
-            danger.style.display = 'none';
-
-            finishGame();
-            return;
-            // if () { 
-               
-            // }
         }
 
         // elementAnimation(arrow, arrowInfo, -600);
@@ -283,28 +278,28 @@ function game() {
         return true;
     }
 
-
-    function finishGame() {
+    function cancelAnimations() {
         cancelAnimationFrame(animationId); // если на паузе, останавливаю работу анимации (стоп функции startGame)
         cancelAnimationFrame(carInfo.move.top); // если на паузе, останавливаю движение авто
         cancelAnimationFrame(carInfo.move.bottom); // если на паузе, останавливаю движение авто
         cancelAnimationFrame(carInfo.move.left); // если на паузе, останавливаю движение авто
         cancelAnimationFrame(carInfo.move.right); // если на паузе, останавливаю движение авто
-        gameButton.children[0].style.display = 'none'; 
-        gameButton.children[1].style.display = 'initial';
     }
 
+    function finishGame() {
+        cancelAnimations();
+        gameScore.style.display = 'none';
+        gameButton.style.display = 'none';
+        drop.style.display = 'flex';
+        const scoreText = drop.querySelector('.restart-text-score');
+        scoreText.innerText = score;
+    }
 
-    const gameButton = document.querySelector('.game-button');
     gameButton.addEventListener('click', () => {
         isPause = !isPause;
 
         if (isPause) {
-            cancelAnimationFrame(animationId); // если на паузе, останавливаю работу анимации (стоп функции startGame)
-            cancelAnimationFrame(carInfo.move.top); // если на паузе, останавливаю движение авто
-            cancelAnimationFrame(carInfo.move.bottom); // если на паузе, останавливаю движение авто
-            cancelAnimationFrame(carInfo.move.left); // если на паузе, останавливаю движение авто
-            cancelAnimationFrame(carInfo.move.right); // если на паузе, останавливаю движение авто
+            cancelAnimations();
             gameButton.children[0].style.display = 'none'; 
             gameButton.children[1].style.display = 'initial';
         }
@@ -313,5 +308,9 @@ function game() {
             gameButton.children[0].style.display = 'initial';
             gameButton.children[1].style.display = 'none';
         }
+    });
+
+    restartButton.addEventListener('click', () => {
+        window.location.reload();
     });
 };
