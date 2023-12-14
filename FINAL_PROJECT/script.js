@@ -182,9 +182,7 @@ function game() {
             score++;
             const audio = new Audio('./sound/coin.mp3');
             audio.play();
-            if (window.navigator && window.navigator.vibrate) {
-                window.navigator.vibrate(600);
-              }
+            window.navigator.vibrate(600);
             gameScore.innerText = score;
             coin.style.display = 'none';
             coinInfo.visible = false;
@@ -287,9 +285,7 @@ function game() {
         scoreText.innerText = score;
         const audio = new Audio('./sound/crush.mp3');
         audio.play();
-        if (window.navigator && window.navigator.vibrate) {
-          window.navigator.vibrate(600);
-        }
+        window.navigator.vibrate(600);
     }
 
     gameButton.addEventListener('click', () => {
