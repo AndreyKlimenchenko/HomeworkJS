@@ -70,33 +70,6 @@ html {
   width: 270px;
 }
 
-@media (max-width: 600px) {
-  .tree1 {
-    width: 90px;
-    transform: translate(-160px, -15vh);
-  }
-  .tree2 {
-    width: 100px;
-    transform: translate(-160px, 25vh);
-  }
-  .tree3 {
-    width: 100px;
-    transform: translate(-160px, 70vh);
-  }
-  .tree4 {
-    width: 90px;
-    transform: translate(160px, -5vh);
-  }
-  .tree5 {
-    width: 90px;
-    transform: translate(160px, 40vh);
-  }
-  .tree6 {
-    width: 100px;
-    transform: translate(160px, 80vh);
-  }
-}
-
 .game-button {
   position: fixed;
   right: 10px;
@@ -114,8 +87,8 @@ html {
 }
 
 .game-button img {
-  width: 60px;
-  height: 60px;
+  width: 50px;
+  height: 50px;
 }
 
 .game-button .play {
@@ -315,5 +288,56 @@ html {
   writing-mode: vertical-rl;
   text-orientation: upright;
   font-family: Arial, Helvetica, sans-serif;
-  box-shadow: 0px 8px 12px 6px rgba(0, 0, 0, 0.15), 0px 4px 4px 0px rgba(0, 0, 0, 0.30);
+  box-shadow: 0px 8px 12px 6px rgba(0, 0, 0, 0.15),
+    0px 4px 4px 0px rgba(0, 0, 0, 0.3);
+}
+
+@media (max-width: 600px) {
+  .tree1 {
+    width: 80px;
+    transform: translate(-145px, -15vh);
+  }
+  .tree2 {
+    width: 80px;
+    transform: translate(-145px, 25vh);
+  }
+  .tree3 {
+    width: 80px;
+    transform: translate(-155px, 70vh);
+  }
+  .tree4 {
+    width: 80px;
+    transform: translate(150px, -5vh);
+  }
+  .tree5 {
+    width: 80px;
+    transform: translate(150px, 40vh);
+  }
+  .tree6 {
+    width: 80px;
+    transform: translate(150px, 80vh);
+  }
+}
+
+@media (max-width: 800px) {
+  .user {
+    left: 4px;
+    font-size: 14px;
+    padding: 4px;
+  }
+
+  .game-score {
+    left: 4px;
+    width: 40px;
+    height: 40px;
+  }
+
+  .game-button img {
+    width: 40px;
+    height: 40px;
+  }
+
+  .game-button {
+    right: 4px;
+  }
 }
