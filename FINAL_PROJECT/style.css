@@ -267,12 +267,6 @@ html {
   z-index: 100;
 }
 
-@media (max-width: 800px) {
-  .nav-btns-container {
-    display: block;
-  }
-}
-
 .nav-button {
   border-radius: 50px;
   width: 50px;
@@ -283,6 +277,10 @@ html {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.nav-button-disabled button {
+  opacity: 0.2;
 }
 
 .nav-button-row {
@@ -299,4 +297,23 @@ html {
 .down-button {
   display: block;
   margin: 0px auto;
+}
+
+.user {
+  display: none;
+  position: absolute;
+  top: 70px;
+  left: 14px;
+  font-size: 20px;
+  font-weight: 900;
+  color: #2c2b2d;
+  z-index: 15;
+  background-color: #79c043;
+  padding: 6px;
+  border-radius: 4px;
+  border: solid 1px #2c2b2d;
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+  font-family: Arial, Helvetica, sans-serif;
+  box-shadow: 0px 8px 12px 6px rgba(0, 0, 0, 0.15), 0px 4px 4px 0px rgba(0, 0, 0, 0.30);
 }

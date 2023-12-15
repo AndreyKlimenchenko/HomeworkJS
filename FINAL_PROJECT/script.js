@@ -23,6 +23,7 @@ function game() {
   const leftButton = document.querySelector(".left-button");
   const rightButton = document.querySelector(".right-button");
   const downButton = document.querySelector(".down-button");
+  const navBtnsContainer = document.querySelector(".nav-btns-container"); // контейнер нужен чтобы показывать или нет
 
   const coin = document.querySelector(".coin");
   const coinInfo = createElementInfo(coin);
@@ -40,6 +41,7 @@ function game() {
 
   const name = document.querySelector(".name");
   const nameButton = document.querySelector(".name-button");
+  const currentUser = document.querySelector(".user"); // текущий юзер
   let userName = "";
 
   const drop = document.querySelector(".drop");
@@ -47,50 +49,60 @@ function game() {
 
   const trees = document.querySelectorAll(".tree");
   const treesCoords = [];
-  for (let i = 0; i < trees.length; i++) {
+  for (let i = 0; i < trees.length; i++) { //располагаем деревья
     const tree = trees[i];
     const coordsTree = getCoords(tree);
     treesCoords.push(coordsTree); // добавляю координаты в массив
   }
-
-  upButton.addEventListener("touchstart", (event) => {
+// тач ивенты для мобильной навигации
+  upButton.addEventListener("touchstart", (event) => { // нажатие
+    if (isPause) { // в паузе действие заблокировано
+      return;
+    }
     carInfo.move.top = requestAnimationFrame(carMoveToTop);
   });
 
-  upButton.addEventListener("touchend", (event) => {
+  upButton.addEventListener("touchend", (event) => { // окончание нажатия
     cancelAnimationFrame(carInfo.move.top);
   });
 
-  leftButton.addEventListener("touchstart", (event) => {
+  leftButton.addEventListener("touchstart", (event) => { // нажатие
+    if (isPause) { // в паузе действие заблокировано
+      return;
+    }
     carInfo.move.left = requestAnimationFrame(carMoveToLeft);
   });
 
-  leftButton.addEventListener("touchend", (event) => {
+  leftButton.addEventListener("touchend", (event) => { // окончание нажатия
     cancelAnimationFrame(carInfo.move.left);
   });
 
-  rightButton.addEventListener("touchstart", (event) => {
+  rightButton.addEventListener("touchstart", (event) => { // нажатие
+    if (isPause) { // в паузе действие заблокировано
+      return;
+    }
     carInfo.move.right = requestAnimationFrame(carMoveToRight);
   });
 
-  rightButton.addEventListener("touchend", (event) => {
+  rightButton.addEventListener("touchend", (event) => { // окончание нажатия
     cancelAnimationFrame(carInfo.move.right);
   });
 
-  downButton.addEventListener("touchstart", (event) => {
+  downButton.addEventListener("touchstart", (event) => { // нажатие
+    if (isPause) { // в паузе действие заблокировано
+      return;
+    }
     carInfo.move.bottom = requestAnimationFrame(carMoveToBottom);
   });
 
-  downButton.addEventListener("touchend", (event) => {
+  downButton.addEventListener("touchend", (event) => { // окончание нажатия
     cancelAnimationFrame(carInfo.move.bottom);
   });
-
+//эвенты клавиатуры
   document.addEventListener("keydown", (event) => {
-    if (isPause) {
-      // если пауза, выход из функции, чтобы не двигалась машина
+    if (isPause) { // если пауза, выход из функции, чтобы не двигалась машина
       return;
     }
-
     const code = event.code;
 
     if (code === "ArrowUp" && carInfo.move.top === null) {
@@ -124,6 +136,7 @@ function game() {
     }
   });
 
+  //окончание клавиатурного эвента
   document.addEventListener("keyup", (event) => {
     const code = event.code;
 
@@ -141,7 +154,7 @@ function game() {
       carInfo.move.right = null;
     }
   });
-
+//данные элементов
   function createElementInfo(element) {
     return {
       coords: getCoords(element),
@@ -224,12 +237,12 @@ function game() {
     elementAnimation(coin, coinInfo, -100);
 
     if (coinInfo.visible && hasCollision(carInfo, coinInfo)) {
-      // если элемент виден и произошла коллизия, эелемент скрывается
       score++;
       const audio = new Audio("./sound/coin.mp3");
       audio.play();
       window.navigator.vibrate(600);
       gameScore.innerText = score;
+      // если элемент виден и произошла коллизия, эелемент скрывается
       coin.style.display = "none";
       coinInfo.visible = false;
 
@@ -289,7 +302,7 @@ function game() {
     const matrix = window.getComputedStyle(element).transform; // достаю стиль
     const array = matrix.split(","); //по запятым
     const y = array[array.length - 1]; //последний элемент
-    const x = array[array.length - 2]; //последний элемент
+    const x = array[array.length - 2]; //предпоследний элемент
     const numericY = parseFloat(y); //преобразование строки к числу
     const numericX = parseFloat(x); //преобразование к числу
     return { x: numericX, y: numericY };
@@ -328,7 +341,7 @@ function game() {
     cancelAnimationFrame(carInfo.move.right); // если на паузе, останавливаю движение авто
   }
 
-  function finishGame() {
+  function finishGame() { //конец игры
     cancelAnimations();
     gameScore.style.display = "none";
     gameButton.style.display = "none";
@@ -340,19 +353,22 @@ function game() {
     audio.play();
     window.navigator.vibrate(600);
     localStorage.setItem(userName, score); // сохраняем успех юзера
+    navBtnsContainer.style.display = "none";
   }
 
-  gameButton.addEventListener("click", () => {
+  gameButton.addEventListener("click", () => { //кнопки паузы и запуска игры
     isPause = !isPause;
 
     if (isPause) {
       cancelAnimations();
       gameButton.children[0].style.display = "none";
       gameButton.children[1].style.display = "initial";
+      navBtnsContainer.classList.add("nav-button-disabled");
     } else {
       animationId = requestAnimationFrame(startGame); // запуск после паузы
       gameButton.children[0].style.display = "initial";
       gameButton.children[1].style.display = "none";
+      navBtnsContainer.classList.remove("nav-button-disabled");
     }
   });
 
@@ -370,8 +386,13 @@ function game() {
     animationId = requestAnimationFrame(startGame); //анимация и вся игра запускается
     gameScore.style.display = "flex";
     pauseButton.style.display = "block";
+    currentUser.style.display = "block";
+    if (window.innerWidth <= 800) { // показ кнопок навигации только на мобилке
+      navBtnsContainer.style.display = "block";
+    }
+    currentUser.innerText = `Cейчас играет 👇 ${userName}`;
     const savedUserScore = localStorage.getItem(userName); //проверяем начичие предыдущих очков юзера
-    score = Number(savedUserScore) || 0; //есть очки есть, то записываем в начальный успех новой игры
+    score = Number(savedUserScore) || 0; //если очки есть, то записываем в начальный успех новой игры
     gameScore.innerText = score;
   });
 }
