@@ -1,7 +1,8 @@
-body {
+body,
+html {
   display: flex;
   justify-content: center;
-  margin: 0;
+  margin: 0px;
   background: #947521;
   overflow: hidden;
 }
@@ -157,6 +158,7 @@ body {
   height: 100%;
   background: rgba(0, 0, 0, 0.75);
   z-index: 50;
+  overflow: hidden;
 }
 
 .drop-container {
@@ -164,6 +166,7 @@ body {
   border-radius: 8px;
   background: white;
   display: flex;
+  box-sizing: border-box;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -211,6 +214,7 @@ body {
   height: 100%;
   background: rgba(0, 0, 0, 0.75);
   z-index: 50;
+  overflow: hidden;
 }
 
 .name-container {
@@ -231,4 +235,68 @@ body {
   border-radius: 4px;
   padding: 10px;
   box-sizing: border-box;
+}
+
+.arrow-right {
+  margin-left: 4px;
+}
+
+.arrow-up {
+  transform: rotate(-90deg);
+  margin-bottom: 4px;
+}
+
+.arrow-left {
+  transform: rotate(-180deg);
+  margin-right: 4px;
+}
+
+.arrow-down {
+  transform: rotate(90deg);
+  margin-top: 4px;
+}
+
+.nav-btns-container {
+  display: none;
+  position: absolute;
+  bottom: 20px;
+  left: 0px;
+  right: 0px;
+  margin: 0px auto;
+  width: 260px;
+  z-index: 100;
+}
+
+@media (max-width: 800px) {
+  .nav-btns-container {
+    display: block;
+  }
+}
+
+.nav-button {
+  border-radius: 50px;
+  width: 50px;
+  height: 50px;
+  padding: 0px;
+  border: solid 2px grey;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.nav-button-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 50px;
+}
+
+.up-button {
+  display: block;
+  margin: 0px auto;
+}
+
+.down-button {
+  display: block;
+  margin: 0px auto;
 }
