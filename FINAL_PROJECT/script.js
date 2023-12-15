@@ -245,6 +245,7 @@ function game() {
 
     if (hasCollision(carInfo, dangerInfo)) {
       //если наехал на препятствие, игра заканчивается
+      animationId = null;
       return finishGame();
     }
 
@@ -379,7 +380,8 @@ function game() {
     navBtnsContainer.classList.remove("nav-button-disabled");
   }
 
-  function handleGamePause() { // нажатие паузы
+  function handleGamePause() {
+    // нажатие паузы
     cancelAnimations();
     gameButton.children[0].style.display = "none";
     gameButton.children[1].style.display = "initial";
@@ -389,7 +391,6 @@ function game() {
   gameButton.addEventListener("click", () => {
     //кнопки паузы и запуска игры
     isPause = !isPause;
-
     if (isPause) {
       handleGamePause();
     } else {
@@ -397,14 +398,17 @@ function game() {
     }
   });
 
-  window.addEventListener("keypress", (event) => {
+  document.addEventListener("keypress", (event) => {
     // управление состоянием игры с клавиатуры: пробел = пауза, энтер = начать игру
     const code = event.code;
-    isPause = !isPause;
-    if (code === "Space" && isPause) {
+    if (!animationId) return;
+
+    if (code === "Space" && !isPause) {
+      isPause = true;
       handleGamePause();
     }
-    if (code === "Enter" && !isPause) {
+    if (code === "Enter" && isPause) {
+      isPause = false;
       handleGamePlay();
     }
   });
