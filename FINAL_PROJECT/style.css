@@ -69,6 +69,33 @@ body {
   width: 270px;
 }
 
+@media (max-width: 600px) {
+  .tree1 {
+    width: 90px;
+    transform: translate(-160px, -15vh);
+  }
+  .tree2 {
+    width: 100px;
+    transform: translate(-160px, 25vh);
+  }
+  .tree3 {
+    width: 100px;
+    transform: translate(-160px, 70vh);
+  }
+  .tree4 {
+    width: 90px;
+    transform: translate(160px, -5vh);
+  }
+  .tree5 {
+    width: 90px;
+    transform: translate(160px, 40vh);
+  }
+  .tree6 {
+    width: 100px;
+    transform: translate(160px, 80vh);
+  }
+}
+
 .game-button {
   position: fixed;
   right: 10px;
