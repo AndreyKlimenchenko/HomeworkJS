@@ -49,58 +49,73 @@ function game() {
 
   const trees = document.querySelectorAll(".tree");
   const treesCoords = [];
-  for (let i = 0; i < trees.length; i++) { //располагаем деревья
+  for (let i = 0; i < trees.length; i++) {
+    //располагаем деревья
     const tree = trees[i];
     const coordsTree = getCoords(tree);
     treesCoords.push(coordsTree); // добавляю координаты в массив
   }
-// тач ивенты для мобильной навигации
-  upButton.addEventListener("touchstart", (event) => { // нажатие
-    if (isPause) { // в паузе действие заблокировано
+  // тач ивенты для мобильной навигации
+  upButton.addEventListener("touchstart", (event) => {
+    // нажатие
+    if (isPause) {
+      // в паузе действие заблокировано
       return;
     }
     carInfo.move.top = requestAnimationFrame(carMoveToTop);
   });
 
-  upButton.addEventListener("touchend", (event) => { // окончание нажатия
+  upButton.addEventListener("touchend", (event) => {
+    // окончание нажатия
     cancelAnimationFrame(carInfo.move.top);
   });
 
-  leftButton.addEventListener("touchstart", (event) => { // нажатие
-    if (isPause) { // в паузе действие заблокировано
+  leftButton.addEventListener("touchstart", (event) => {
+    // нажатие
+    if (isPause) {
+      // в паузе действие заблокировано
       return;
     }
     carInfo.move.left = requestAnimationFrame(carMoveToLeft);
   });
 
-  leftButton.addEventListener("touchend", (event) => { // окончание нажатия
+  leftButton.addEventListener("touchend", (event) => {
+    // окончание нажатия
     cancelAnimationFrame(carInfo.move.left);
   });
 
-  rightButton.addEventListener("touchstart", (event) => { // нажатие
-    if (isPause) { // в паузе действие заблокировано
+  rightButton.addEventListener("touchstart", (event) => {
+    // нажатие
+    if (isPause) {
+      // в паузе действие заблокировано
       return;
     }
     carInfo.move.right = requestAnimationFrame(carMoveToRight);
   });
 
-  rightButton.addEventListener("touchend", (event) => { // окончание нажатия
+  rightButton.addEventListener("touchend", (event) => {
+    // окончание нажатия
     cancelAnimationFrame(carInfo.move.right);
   });
 
-  downButton.addEventListener("touchstart", (event) => { // нажатие
-    if (isPause) { // в паузе действие заблокировано
+  downButton.addEventListener("touchstart", (event) => {
+    // нажатие
+    if (isPause) {
+      // в паузе действие заблокировано
       return;
     }
     carInfo.move.bottom = requestAnimationFrame(carMoveToBottom);
   });
 
-  downButton.addEventListener("touchend", (event) => { // окончание нажатия
+  downButton.addEventListener("touchend", (event) => {
+    // окончание нажатия
     cancelAnimationFrame(carInfo.move.bottom);
   });
-//эвенты клавиатуры
+
+  //эвенты клавиатуры
   document.addEventListener("keydown", (event) => {
-    if (isPause) { // если пауза, выход из функции, чтобы не двигалась машина
+    if (isPause) {
+      // если пауза, выход из функции, чтобы не двигалась машина
       return;
     }
     const code = event.code;
@@ -154,7 +169,7 @@ function game() {
       carInfo.move.right = null;
     }
   });
-//данные элементов
+  //данные элементов
   function createElementInfo(element) {
     return {
       coords: getCoords(element),
@@ -341,7 +356,8 @@ function game() {
     cancelAnimationFrame(carInfo.move.right); // если на паузе, останавливаю движение авто
   }
 
-  function finishGame() { //конец игры
+  function finishGame() {
+    //конец игры
     cancelAnimations();
     gameScore.style.display = "none";
     gameButton.style.display = "none";
@@ -356,19 +372,40 @@ function game() {
     navBtnsContainer.style.display = "none";
   }
 
-  gameButton.addEventListener("click", () => { //кнопки паузы и запуска игры
+  function handleGamePlay() {
+    animationId = requestAnimationFrame(startGame); // запуск после паузы
+    gameButton.children[0].style.display = "initial";
+    gameButton.children[1].style.display = "none";
+    navBtnsContainer.classList.remove("nav-button-disabled");
+  }
+
+  function handleGamePause() { // нажатие паузы
+    cancelAnimations();
+    gameButton.children[0].style.display = "none";
+    gameButton.children[1].style.display = "initial";
+    navBtnsContainer.classList.add("nav-button-disabled");
+  }
+
+  gameButton.addEventListener("click", () => {
+    //кнопки паузы и запуска игры
     isPause = !isPause;
 
     if (isPause) {
-      cancelAnimations();
-      gameButton.children[0].style.display = "none";
-      gameButton.children[1].style.display = "initial";
-      navBtnsContainer.classList.add("nav-button-disabled");
+      handleGamePause();
     } else {
-      animationId = requestAnimationFrame(startGame); // запуск после паузы
-      gameButton.children[0].style.display = "initial";
-      gameButton.children[1].style.display = "none";
-      navBtnsContainer.classList.remove("nav-button-disabled");
+      handleGamePlay();
+    }
+  });
+
+  window.addEventListener("keypress", (event) => {
+    // управление состоянием игры с клавиатуры: пробел = пауза, энтер = начать игру
+    const code = event.code;
+    isPause = !isPause;
+    if (code === "Space" && isPause) {
+      handleGamePause();
+    }
+    if (code === "Enter" && !isPause) {
+      handleGamePlay();
     }
   });
 
@@ -387,7 +424,8 @@ function game() {
     gameScore.style.display = "flex";
     pauseButton.style.display = "block";
     currentUser.style.display = "block";
-    if (window.innerWidth <= 800) { // показ кнопок навигации только на мобилке
+    if (window.innerWidth <= 800) {
+      // показ кнопок навигации только на мобилке
       navBtnsContainer.style.display = "block";
     }
     currentUser.innerText = `Cейчас играет 👇 ${userName}`;
